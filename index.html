@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="utf-8">
+	<title>AngularJS</title>
+	<script type="text/javascript" src="./js/libs/angular.js"></script>
+	<script type="text/javascript" src="./js/main_controller.js"></script>
+	
+</head>
+<body ng-app="DemoApp" ng-init="name = 'LoftBlog'">
+	<input type="text" name="input text" ng-model="value">
+	{{value}}
+	<br>
+	<input type="checkbox" name="123213" ng-model="showText">
+	<span ng-show="showText">text that we'll see</span>
+
+
+	<div ng-controller="MainController">
+		<input type="text" ng-model="name" ng-keyup="nameChange()">
+		<p ng-bind="greeting"></p>
+		<p>{{name}}</p>
+	</div>
+
+	<ul  ng-controller="PhoneListCtrl">
+		<li ng-repeat="phone in phones">
+			<span>{{phone.name}}</span>
+			<p>{{phone.snippet}}</p>
+		</li>
+	</ul>
+
+
+
+
+</body>
+</html>
