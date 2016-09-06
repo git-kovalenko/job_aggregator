@@ -66,12 +66,12 @@ module.exports = function(database, browser, moment, cheerio, async){
 
 			for(key in links){
 				var link = links[key];
-				var reqUrl = link.url + '?';
 				var paginator = link.params[link.paginatorName];
 
 				
-				async.doWhilst(
-					function(callback){
+				// async.doWhilst(
+				// 	function(callback){
+						var reqUrl = link.url + '?';
 						for(param in link.params){
 							var value = link.params[param];
 							if(link.paginatorName == param){
@@ -82,63 +82,60 @@ module.exports = function(database, browser, moment, cheerio, async){
 							}
 							reqUrl = reqUrl + param + '=' + value + ((lastKey == true)? '':'&');
 						}
-		console.log(reqUrl);
+console.log(reqUrl);
 						browser.visit(reqUrl, function (e, browser) {
-						var injectedScript = browser.document.createElement("script");
-						injectedScript.setAttribute("type","text/javascript");
-						injectedScript.setAttribute("src", "http://code.jquery.com/jquery-1.11.0.min.js");
-						browser.body.appendChild(injectedScript);    
-						browser.wait(function(window) {
-								return ( browser.evaluate("typeof $") == "function" )
-							}, 
-							function() {
-c.log('try')								
-								try{
+							var injectedScript = browser.document.createElement("script");
+							injectedScript.setAttribute("type","text/javascript");
+							injectedScript.setAttribute("src", "http://code.jquery.com/jquery-1.11.0.min.js");
+							browser.body.appendChild(injectedScript);    
+							browser.wait(function(window) {
+									return ( browser.evaluate("typeof $") == "function" )
+								}, 
+								function() {
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
-c.log(tableRows)									
-									tableRows.each(function(i, tr){
-										var newJob = new Job (link.cheerioGetters( $(tr) ));
-										if(!/^http/.test(newJob.url)){
-											newJob.url = link.domain + newJob.url;
-										}
-										console.log(  newJob.url   );	
-									});
-								}catch(e){
-									console.log('Ошибка ' + e.name + ":" + e.message + "\n" + e.stack);
-								}
-c.log('tableRows.length= '+tableRows.length);
-								// callback(null, tableRows.length)
+											
+											try{
+												tableRows.each(function(i, tr){
+													var newJob = new Job (link.cheerioGetters( $(tr) ));
+													if(!/^http/.test(newJob.url)){
+														newJob.url = link.domain + newJob.url;
+													}
+													console.log(  newJob.url   );	
 
-								
-							}
-						);
-					},
+													database.add(newJob);
+												});
+											}catch(e){
+												console.log('Ошибка ' + e.name + ":" + e.message + "\n" + e.stack);
+											}
+											
+									
+
+
+
+									// callback(null, tableRows.length)
+								}
+							);
+						});
+					/*},
 					function(tableRowsLength){
 c.log(tableRowsLength)						
-						if(tableRowsLength > 0){
-							paginator = paginator + link.pagestep;
+							if(tableRowsLength > 0){
+								paginator = null // parseInt(paginator) + parseInt(link.pageStep);
+							}
+							return (tableRowsLength > 0);
+						},
+						function (err, n) {
+							if(err){
+								c.log(err);
+							}else{
+								c.log('-------> done!')
+							}
 						}
-c.log('paginator = ' +paginator)						
-						return (tableRowsLength > 0);
-					},
-					function (err, n) {
-						if(err){
-							c.log(err);
-						}else{
-							c.log('-------> done!')
-						}
-					}
-				);
-
-
-			});
+					);*/
 
 
 
-
-
-				// database.add(newJob);
 				
 			}
 		}
