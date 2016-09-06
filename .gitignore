@@ -1,3 +1,2 @@
 *.txt
-*.md
 /node/node_modules/*
