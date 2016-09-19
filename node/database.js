@@ -24,9 +24,11 @@ module.exports = function(pool){
 			var duplicateJob = Object.assign({}, newJob);
 			delete duplicateJob.date_from;
 			pool.query("INSERT INTO vacancies SET ? ON DUPLICATE KEY UPDATE `date`=CURRENT_TIMESTAMP, ?", [newJob, duplicateJob], function(err, rows, fields){
-				console.log('affectedRows : '+rows.affectedRows)
+				if (rows != undefined){
+					console.log('affectedRows : '+ rows.affectedRows)
+				}
 			    callback();
-				// if (err) throw err;
+				if (err) throw err;
 			});
 		}
 	}

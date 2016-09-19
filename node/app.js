@@ -11,7 +11,7 @@ c.log("Здравствуйте, уважаемый "
 	+' '+process.platform
 	+(argv['debug'] ? '. Режим отладки включен.' : "")
 )
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 // console.log(process.argv)
 
 // var util = require('util');

@@ -119,7 +119,6 @@ reqUrl = 'http://jobs.dou.ua/vacancies/'
 								}, 
 								function() {
 									var $ = cheerio.load(browser.html());
-c.log(browser.html())									
 									var tableRows = $(link.tableRowsSelector);
 c.log(tableRows.length)									
 									if (link.paginatorTrigger){
@@ -139,7 +138,7 @@ c.log(tableRows.length)
 												if(!/^http/.test(newJob.url)){
 													newJob.url = link.domain + newJob.url;
 												}
-												console.log(  newJob.url   );	
+console.log(  newJob.url   );	
 
 												database.add(newJob, callbackEach);
 											},
@@ -161,7 +160,7 @@ c.log(tableRows.length)
 						});
 					},
 					function(tableRowsLength){
-						c.log("tableRowsLength = "+ tableRowsLength)						
+c.log("tableRowsLength = "+ tableRowsLength)						
 						if(tableRowsLength > 0){
 							paginator = parseInt(paginator) + parseInt(link.pageStep);
 						}
