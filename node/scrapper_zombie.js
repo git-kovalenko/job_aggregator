@@ -8,20 +8,20 @@ try{
 	var cityCodes = {
 			kiev:{
 				rabota_ua: '1',
-				dou_ua: 'Киев'
+				dou_ua: '%D0%9A%D0%B8%D0%B5%D0%B2'
 			}
 		};
 	var categories = {
 			it:{
 				rabota_ua: '1',
-				dou_ua: 'Front End'
+				dou_ua: 'Front%20End'
 			}
 		};
 // https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D0%B5%D0%B2&category=Front%20End		
 	var links = {
 		dou_ua:{
-			domain: 'http://jobs.dou.ua',
-			url: 'http://jobs.dou.ua/vacancies/',
+			domain: 'https://jobs.dou.ua',
+			url: 'https://jobs.dou.ua/vacancies/',
 			paginatorTrigger: "$('.more-btn a').trigger('mousedown').trigger('mouseup')",
 			params:{
 				city: cityCodes[grabOptions.city]['dou_ua'],
@@ -107,7 +107,7 @@ module.exports = function(database, browser, moment, cheerio, async){
 							}
 							reqUrl = reqUrl + param + '=' + value + ((lastKey == true)? '':'&');
 						}
-reqUrl = 'http://jobs.dou.ua/vacancies/'						
+// reqUrl = 'https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D0%B5%D0%B2&category=Front%20End'						
 						console.log(reqUrl);
 						browser.visit(reqUrl, function (e, browser) {
 							// var injectedScript = browser.document.createElement("script");
@@ -123,9 +123,16 @@ reqUrl = 'http://jobs.dou.ua/vacancies/'
 c.log(tableRows.length)									
 									if (link.paginatorTrigger){
 										browser.click('.more-btn a', function(){
-											$ = cheerio.load(browser.html());
-											tableRows = $(link.tableRowsSelector);
-c.log(tableRows.length)									
+											browser.wait(function(window) {
+												$ = cheerio.load(browser.html());
+c.log('after click =  '+ $(link.tableRowsSelector).length)		
+												return ( $(link.tableRowsSelector) )
+											}, 
+											function() {
+c.log('after wait =  '+ $(link.tableRowsSelector).length)		
+												tableRows = $(link.tableRowsSelector);
+											});
+
 
 										});
 									}

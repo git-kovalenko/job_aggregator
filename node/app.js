@@ -11,7 +11,7 @@ c.log("Здравствуйте, уважаемый "
 	+' '+process.platform
 	+(argv['debug'] ? '. Режим отладки включен.' : "")
 )
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 // console.log(process.argv)
 
 // var util = require('util');
@@ -53,7 +53,7 @@ var cheerio = require('cheerio');
 // database.createTable();
 var async = require('async');
 var browser = require('zombie');
-browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
+// browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
 
 
 
