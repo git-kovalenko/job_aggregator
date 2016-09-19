@@ -14,7 +14,7 @@ try{
 	var categories = {
 			it:{
 				rabota_ua: '1',
-				dou_ua: 'Front%20End'
+				dou_ua: 'Front End'
 			}
 		};
 // https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D0%B5%D0%B2&category=Front%20End		
@@ -107,12 +107,13 @@ module.exports = function(database, browser, moment, cheerio, async){
 							}
 							reqUrl = reqUrl + param + '=' + value + ((lastKey == true)? '':'&');
 						}
+reqUrl = 'http://jobs.dou.ua/vacancies/'						
 						console.log(reqUrl);
 						browser.visit(reqUrl, function (e, browser) {
-							var injectedScript = browser.document.createElement("script");
-							injectedScript.setAttribute("type","text/javascript");
-							injectedScript.setAttribute("src", "http://code.jquery.com/jquery-1.11.0.min.js");
-							browser.body.appendChild(injectedScript);    
+							// var injectedScript = browser.document.createElement("script");
+							// injectedScript.setAttribute("type","text/javascript");
+							// injectedScript.setAttribute("src", "http://code.jquery.com/jquery-1.11.0.min.js");
+							// browser.body.appendChild(injectedScript);    
 							browser.wait(function(window) {
 									return ( browser.evaluate("typeof $") == "function" )
 								}, 
