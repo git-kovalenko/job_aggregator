@@ -17,26 +17,26 @@ try{
 				dou_ua: 'Front%20End'
 			}
 		};
-// https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D0%B5%D0%B2&category=Front%20End		
+// https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-angular-node-javascript/%D0%9A%D0%B8%D0%B5%D0%B2?date=3&p=2
 	var links = {
 		dou_ua:{
-			domain: 'https://jobs.dou.ua',
-			url: 'https://jobs.dou.ua/vacancies/',
-			paginatorTrigger: "$('.more-btn a').trigger('mousedown').trigger('mouseup')",
+			domain: 'https://ua.jooble.org',
+			url: 'https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0',
+			paginatorName: 'p',
+			pageStep: 1,
 			params:{
-				city: cityCodes[grabOptions.city]['dou_ua'],
+				city: cityCodes[grabOptions.city]['jooble.org'],
 				// keyWords: grabOptions.searchString,
-				category: categories[grabOptions.category]['dou_ua']
+				category: categories[grabOptions.category]['jooble.org']
 			},
-			tableRowsSelector: '.lt li',
+			tableRowsSelector: '.search-list-in .vacancy-item',
 			cheerioGetters: function(tr){
 				return{
-					hot: tr.find('a.vt[href*="list_hot"]').length ? true : false,
-					title: tr.find('a.vt').text().trim(),
-					url: tr.find('a.vt').prop('href'),
-					short_info: tr.find('.sh-info').text().trim(),
-					zp: tr.find('.salary').text().trim(),
-					company: tr.find('.company').text().trim(),
+					title: tr.find('.position h2').text(),
+					url: tr.find('.position a').prop('href'),
+					short_info: tr.find('.search-text').text(),
+					zp: tr.find('.salary').text(),
+					company: tr.find("[itemprop='hiringOrganization']").text(),
 				}
 			}
 		}
