@@ -3,31 +3,33 @@ try{
 	var grabOptions = {
 			city: 'kiev',
 			category: 'it',
-			searchString: 'Front-end'
+			searchString: 'Front-end, angular, nodejs, javascript'
 		};
 	var cityCodes = {
 			kiev:{
 				rabota_ua: '1',
-				dou_ua: '%D0%9A%D0%B8%D0%B5%D0%B2'
+				dou_ua:     '%D0%9A%D0%B8%D0%B5%D0%B2',
+				jooble_org: '%D0%9A%D0%B8%D0%B5%D0%B2'
 			}
 		};
 	var categories = {
 			it:{
 				rabota_ua: '1',
-				dou_ua: 'Front%20End'
+				dou_ua: 'Front%20End',
+				jooble_org: ''
 			}
 		};
 // https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-angular-node-javascript/%D0%9A%D0%B8%D0%B5%D0%B2?date=3&p=2
 	var links = {
-		dou_ua:{
+		jooble_org:{
 			domain: 'https://ua.jooble.org',
-			url: 'https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0',
+			url: 'https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-' + grabOptions.searchString.trim().replace(/-/g, '+').replace(/[\s]+/g, '-'),
 			paginatorName: 'p',
 			pageStep: 1,
 			params:{
-				city: cityCodes[grabOptions.city]['jooble.org'],
-				// keyWords: grabOptions.searchString,
-				category: categories[grabOptions.category]['jooble.org']
+				city: cityCodes[grabOptions.city]['jooble_org'],
+				date: '0',
+				p: 1
 			},
 			tableRowsSelector: '.search-list-in .vacancy-item',
 			cheerioGetters: function(tr){
@@ -40,7 +42,7 @@ try{
 				}
 			}
 		}
-		/*,
+		,
 		rabota_ua:{
 			domain: 'http://rabota.ua',
 			url: 'http://rabota.ua/jobsearch/vacancy_list',
@@ -63,7 +65,7 @@ try{
 					company: tr.find('.s a').text().trim(),
 				}
 			}
-		}*/
+		}
 	};
 	// console.log(links)
 }catch(e){
@@ -96,19 +98,30 @@ module.exports = function(database, browser, moment, cheerio, async){
 				
 				async.doWhilst(
 					function(callbackDoWhilst){
-						var reqUrl = link.url + '?';
+						var reqUrl = link.url;
+
 						for(param in link.params){
 							var value = link.params[param];
 							if(link.paginatorName == param){
 								value = paginator;
 							}
-							if(Object.keys(link.params)[Object.keys(link.params).length - 1] == param){
-								var lastKey = true;
+							var firstKey = Object.keys(link.params)[0] == param;
+							var lastKey = Object.keys(link.params)[Object.keys(link.params).length - 1] == param;
+								
+							if(key == 'jooble_org'){
+								if(param == 'city'){
+									 reqUrl = reqUrl +'/'+ value + '?'
+								}else{
+									reqUrl = reqUrl + param + '=' + value + ((lastKey == true)? '':'&');	
+								}
+							}else{
+								reqUrl = reqUrl + ((firstKey == true)? '?':'') + param + '=' + value + ((lastKey == true)? '':'&');
 							}
-							reqUrl = reqUrl + param + '=' + value + ((lastKey == true)? '':'&');
 						}
+// https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-angular-node-javascript/%D0%9A%D0%B8%D0%B5%D0%B2?date=3&p=2
 // reqUrl = 'https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D0%B5%D0%B2&category=Front%20End'						
-						console.log(reqUrl);
+						c.log(reqUrl);
+						c.log('paginator = '+paginator)
 						browser.visit(reqUrl, function (e, browser) {
 							// var injectedScript = browser.document.createElement("script");
 							// injectedScript.setAttribute("type","text/javascript");
@@ -122,19 +135,37 @@ module.exports = function(database, browser, moment, cheerio, async){
 									var tableRows = $(link.tableRowsSelector);
 c.log(tableRows.length)									
 									if (link.paginatorTrigger){
-										browser.click('.more-btn a', function(){
-											browser.wait(function(window) {
+										
+										browser.fire('.more-btn a', 'mousedown', function(){
+											browser.evaluate("$('.more-btn a').mousedown()");											
+											browser.fire('.more-btn a', 'mouseup', function(){
+												browser.evaluate("$('.more-btn a').mouseup()");
 												$ = cheerio.load(browser.html());
-c.log('after click =  '+ $(link.tableRowsSelector).length)		
-												return ( $(link.tableRowsSelector) )
-											}, 
-											function() {
-c.log('after wait =  '+ $(link.tableRowsSelector).length)		
+												c.log('after mouseup =  '+ $(link.tableRowsSelector).length)		
 												tableRows = $(link.tableRowsSelector);
 											});
-
-
 										});
+
+										// browser.evaluate("$('.more-btn a').mousedown()");
+										// browser.evaluate("$('.more-btn a').mouseup()");
+										$ = cheerio.load(browser.html());
+										c.log('after all =  '+ $(link.tableRowsSelector).length)		
+										tableRows = $(link.tableRowsSelector);
+
+										/*browser.wait(
+											function(window) {
+												$ = cheerio.load(browser.html());
+												c.log('after click =  '+ $(link.tableRowsSelector).length)		
+												return ( $(link.tableRowsSelector).length > tableRows.length )
+											}, 
+											function() {
+												c.log('after wait =  '+ $(link.tableRowsSelector).length)		
+												tableRows = $(link.tableRowsSelector);
+											}
+										);
+*/
+
+										
 									}
 									
 
@@ -145,7 +176,8 @@ c.log('after wait =  '+ $(link.tableRowsSelector).length)
 												if(!/^http/.test(newJob.url)){
 													newJob.url = link.domain + newJob.url;
 												}
-console.log(  newJob.url   );	
+console.log(  newJob.title  );	
+
 
 												database.add(newJob, callbackEach);
 											},
@@ -167,7 +199,7 @@ console.log(  newJob.url   );
 						});
 					},
 					function(tableRowsLength){
-c.log("tableRowsLength = "+ tableRowsLength)						
+c.log("tableRowsLength = "+ tableRowsLength)
 						if(tableRowsLength > 0){
 							paginator = parseInt(paginator) + parseInt(link.pageStep);
 						}
