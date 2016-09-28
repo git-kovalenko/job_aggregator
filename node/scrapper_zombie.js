@@ -41,8 +41,7 @@ try{
 					company: tr.find("[itemprop='hiringOrganization']").text(),
 				}
 			}
-		}
-		,
+		},
 		rabota_ua:{
 			domain: 'http://rabota.ua',
 			url: 'http://rabota.ua/jobsearch/vacancy_list',
@@ -91,10 +90,10 @@ module.exports = function(database, browser, moment, cheerio, async){
 				chosen: null
 			}
 
-			for(key in links){
-				var link = links[key];
+			async.eachSeries(links, function(link, callbackEachLink){
+c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+ links[link])
+c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - ')
 				var paginator = link.params[link.paginatorName];
-
 				
 				async.doWhilst(
 					function(callbackDoWhilst){
@@ -107,8 +106,8 @@ module.exports = function(database, browser, moment, cheerio, async){
 							}
 							var firstKey = Object.keys(link.params)[0] == param;
 							var lastKey = Object.keys(link.params)[Object.keys(link.params).length - 1] == param;
-								
-							if(key == 'jooble_org'){
+							var linkKey = Object.keys(links).filter(function(key) {return links[key] === link})[0];
+							if(linkKey == 'jooble_org'){
 								if(param == 'city'){
 									 reqUrl = reqUrl +'/'+ value + '?'
 								}else{
@@ -128,13 +127,14 @@ module.exports = function(database, browser, moment, cheerio, async){
 							// injectedScript.setAttribute("src", "http://code.jquery.com/jquery-1.11.0.min.js");
 							// browser.body.appendChild(injectedScript);    
 							browser.wait(function(window) {
+								c.log( browser.evaluate("typeof $") == "function" )
 									return ( browser.evaluate("typeof $") == "function" )
 								}, 
 								function() {
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
 c.log(tableRows.length)									
-									if (link.paginatorTrigger){
+									/*if (link.paginatorTrigger){
 										
 										browser.fire('.more-btn a', 'mousedown', function(){
 											browser.evaluate("$('.more-btn a').mousedown()");											
@@ -152,21 +152,21 @@ c.log(tableRows.length)
 										c.log('after all =  '+ $(link.tableRowsSelector).length)		
 										tableRows = $(link.tableRowsSelector);
 
-										/*browser.wait(
-											function(window) {
-												$ = cheerio.load(browser.html());
-												c.log('after click =  '+ $(link.tableRowsSelector).length)		
-												return ( $(link.tableRowsSelector).length > tableRows.length )
-											}, 
-											function() {
-												c.log('after wait =  '+ $(link.tableRowsSelector).length)		
-												tableRows = $(link.tableRowsSelector);
-											}
-										);
-*/
+										// browser.wait(
+										// 	function(window) {
+										// 		$ = cheerio.load(browser.html());
+										// 		c.log('after click =  '+ $(link.tableRowsSelector).length)		
+										// 		return ( $(link.tableRowsSelector).length > tableRows.length )
+										// 	}, 
+										// 	function() {
+										// 		c.log('after wait =  '+ $(link.tableRowsSelector).length)		
+										// 		tableRows = $(link.tableRowsSelector);
+										// 	}
+										// );
+
 
 										
-									}
+									}*/
 									
 
 									try{
@@ -209,15 +209,20 @@ c.log("tableRowsLength = "+ tableRowsLength)
 						if(err){
 							c.log(err);
 						}else{
-							c.log('-------> done doWhilst!')
+							c.log('-------> done doWhilst!');
 						}
+						callbackEachLink(null)
 					}
 				);
+			},
+			function (err) {
+				if(err){
+					c.log(err);
+				}else{
+					c.log('-------> done eachSeriesLink!')
+				}
+			});
 
-
-
-				
-			}
 		}
 	}
 	return Scrapper;
