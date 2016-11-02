@@ -33,9 +33,12 @@ try{
 			},
 			tableRowsSelector: '.search-list-in .vacancy-item',
 			cheerioGetters: function(tr){
+				var title = tr.find('.position h2').text();
+				var url = tr.find('.position a').prop('href');
 				return{
-					title: tr.find('.position h2').text(),
-					url: tr.find('.position a').prop('href'),
+					key: title + url.match(/^.+\?|^.+\//),
+					title: title,
+					url: url,
 					short_info: tr.find('.search-text').text(),
 					zp: tr.find('.salary').text(),
 					company: tr.find("[itemprop='hiringOrganization']").text(),
@@ -55,10 +58,13 @@ try{
 			},
 			tableRowsSelector: '.vv .v',
 			cheerioGetters: function(tr){
+				var title = tr.find('.t')[0].children[0].data.trim();
+				var url = tr.find('.t').prop('href');
 				return{
+					key: title + url.match(/^.+\?|^.+\//),
 					hot: tr.hasClass('h'),
-					title: tr.find('.t')[0].children[0].data.trim(),
-					url: tr.find('.t').prop('href'),
+					title: title,
+					url: url,
 					short_info: tr.find('div.d').text(),
 					zp: tr.find('.s b').text(),
 					company: tr.find('.s a').text().trim(),
@@ -73,7 +79,7 @@ try{
 //https://jobs.dou.ua/vacancies/?category=Front+End&search=nodejs&city=%D0%9A%D0%B8%D0%B5%D0%B2
 module.exports = function(database, browser, moment, cheerio, async){
 	var Scrapper = {
-		scrape: function(){
+		scrape: function(timeoutMin, timeoutMax){
 			
 			function Job(options){
 				this.date_from = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -90,9 +96,9 @@ module.exports = function(database, browser, moment, cheerio, async){
 				chosen: null
 			}
 
-			async.eachSeries(links, function(link, callbackEachLink){
-c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+ links[link])
-c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - ')
+			async.each(links, function(link, callbackEachLink){
+			//.eachSeries for non parallel
+c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(key) {return links[key] === link})[0])
 				var paginator = link.params[link.paginatorName];
 				
 				async.doWhilst(
@@ -117,8 +123,7 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - ')
 								reqUrl = reqUrl + ((firstKey == true)? '?':'') + param + '=' + value + ((lastKey == true)? '':'&');
 							}
 						}
-// https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-angular-node-javascript/%D0%9A%D0%B8%D0%B5%D0%B2?date=3&p=2
-// reqUrl = 'https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D0%B5%D0%B2&category=Front%20End'						
+
 						c.log(reqUrl);
 						c.log('paginator = '+paginator)
 						browser.visit(reqUrl, function (e, browser) {
@@ -126,11 +131,11 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - ')
 							// injectedScript.setAttribute("type","text/javascript");
 							// injectedScript.setAttribute("src", "http://code.jquery.com/jquery-1.11.0.min.js");
 							// browser.body.appendChild(injectedScript);    
-							browser.wait(function(window) {
-								c.log( browser.evaluate("typeof $") == "function" )
+							/*browser.wait( function(window){
+									c.log( browser.evaluate("typeof $") == "function" )
 									return ( browser.evaluate("typeof $") == "function" )
 								}, 
-								function() {
+								function() {*/
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
 c.log(tableRows.length)									
@@ -170,13 +175,14 @@ c.log(tableRows.length)
 									
 
 									try{
-										
-										async.eachSeries(tableRows, function(tr, callbackEach){
+										var serieIndex = 0;
+										async.each(tableRows, function(tr, callbackEach){
+												serieIndex = ++serieIndex;
 												var newJob = new Job (link.cheerioGetters( $(tr) ));
 												if(!/^http/.test(newJob.url)){
 													newJob.url = link.domain + newJob.url;
 												}
-console.log(  newJob.title  );	
+console.log(serieIndex +" "+  newJob.title  );	
 
 
 												database.add(newJob, callbackEach);
@@ -185,7 +191,10 @@ console.log(  newJob.title  );
 												if(err){
 													c.log(err);
 												}else{
-													c.log('-------> done eachSeries!')
+c.log('-------> done eachSeries!')
+													if(tableRows.length == serieIndex){
+														callbackDoWhilst(null, tableRows.length)
+													}
 												}
 											}
 										);
@@ -193,9 +202,13 @@ console.log(  newJob.title  );
 									}catch(e){
 										console.log('Ошибка ' + e.name + ":" + e.message + "\n" + e.stack);
 									}
-									callbackDoWhilst(null, tableRows.length)
-								}
-							);
+									
+								
+
+							// 	}
+							// );
+
+
 						});
 					},
 					function(tableRowsLength){
@@ -211,7 +224,7 @@ c.log("tableRowsLength = "+ tableRowsLength)
 						}else{
 							c.log('-------> done doWhilst!');
 						}
-						callbackEachLink(null)
+						callbackEachLink(null);
 					}
 				);
 			},
@@ -221,8 +234,18 @@ c.log("tableRowsLength = "+ tableRowsLength)
 				}else{
 					c.log('-------> done eachSeriesLink!')
 				}
+				
+
+				var timeout = Scrapper.getRandomIntMinutes(timeoutMin, timeoutMax);
+c.log("******************  "+timeout)
+				var timeoutId = setTimeout(function() {
+					Scrapper.scrape(timeoutMin, timeoutMax);
+				}, timeout);
 			});
 
+		},
+		getRandomIntMinutes: function(min, max) {
+			return 60000 * (Math.floor(Math.random() * (max - min)) + min);
 		}
 	}
 	return Scrapper;

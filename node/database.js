@@ -1,10 +1,12 @@
+var c = console;
 module.exports = function(pool){
 	var Database ={
 		createTable: function(callback) {
 			pool.query("CREATE TABLE IF NOT EXISTS \
 					`vacancies` (\
+						`key` VARCHAR(1000),\
 						`title` TEXT,\
-			            `url` VARCHAR(1000),\
+			            `url` TEXT,\
 			            `short_info` TEXT,\
 			            `full_info` TEXT,\
 			            `company` VARCHAR(500),\
@@ -14,7 +16,7 @@ module.exports = function(pool){
 			            `chosen` BOOL,\
 			            `date_from` DATETIME,\
 			            `date` TIMESTAMP,\
-						PRIMARY KEY(`url`)\
+						PRIMARY KEY(`key`)\
 					)", function(err, rows, fields){
 				console.log('rows = >>>>>>'+rows)
 				if (err) throw err;
@@ -25,9 +27,9 @@ module.exports = function(pool){
 			delete duplicateJob.date_from;
 			pool.query("INSERT INTO vacancies SET ? ON DUPLICATE KEY UPDATE `date`=CURRENT_TIMESTAMP, ?", [newJob, duplicateJob], function(err, rows, fields){
 				if (rows != undefined){
-					console.log('affectedRows : '+ rows.affectedRows)
+					console.log('               affectedRows : '+ rows.affectedRows)
 				}
-			    callback();
+			    callback(null);
 				if (err) throw err;
 			});
 		}
