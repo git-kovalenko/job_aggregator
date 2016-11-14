@@ -54,12 +54,13 @@ var cheerio = require('cheerio');
 var async = require('async');
 var browser = require('zombie');
 
-browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
+// browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
 var scrapper = require('./scrapper_zombie')(database, browser, moment, cheerio, async);
-scrapper.scrape(1, 2);
+// scrapper.scrape(30, 40);
+database.getAll();
 
 
 

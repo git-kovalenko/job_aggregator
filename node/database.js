@@ -32,6 +32,15 @@ module.exports = function(pool){
 			    callback(null);
 				if (err) throw err;
 			});
+		},
+		getAll: function(){
+			pool.query("SELECT * FROM vacancies", function(err, rows, fields){
+				c.log(rows)
+				if (rows != undefined){
+					console.log('               affectedRows : '+ rows.affectedRows)
+				}
+				if (err) throw err;
+			});
 		}
 	}
 	return Database;
