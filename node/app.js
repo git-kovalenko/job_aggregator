@@ -60,20 +60,22 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 var scrapper = require('./scrapper_zombie')(database, browser, moment, cheerio, async);
 // scrapper.scrape(30, 40);
-database.getAll();
+/*database.getAll(function(result){
+	c.log(result[0])
+});*/
 
-
-
-
-/*var newJob = {
-	hot: false,
-	title: 'FRONT-end-',
-	url: 'http://rabota.ua/jobsearch/vacancy/100',
-	short_info: '311skjdflakejrglkerjglk welk gelrk glearkgjleakrjg lkergl',
-	zp: '30',
-	date_from: moment().format("YYYY-MM-DD HH:mm:ss")
-}*/
-// console.log(newJob.date_from)
-// database.add(newJob);
-
-
+var express = require('express');
+var app = express();
+ 
+app.get('/', function (req, res) {
+  res.send('Hello World')
+});
+app.get('/getAll', function (req, res) {
+	database.getAll(function(result){
+  		res.send(result[0]	)
+	});
+});
+ 
+app.listen(3000, function () {
+  console.log('Server listening on port 3000!')
+})

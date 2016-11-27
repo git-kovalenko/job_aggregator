@@ -4,7 +4,14 @@
   "description": "about server for angular",
   "main": "index.js",
   "dependencies": {
-    "beeper": "^1.1.0"
+    "async": "latest",
+    "cheerio": "latest",
+    "express": "^4.14.0",
+    "minimist": "latest",
+    "moment": "latest",
+    "mysql": "latest",
+    "request": "latest",
+    "zombie": "latest"
   },
   "devDependencies": {},
   "scripts": {

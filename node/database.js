@@ -33,13 +33,17 @@ module.exports = function(pool){
 				if (err) throw err;
 			});
 		},
-		getAll: function(){
+		getAll: function(callback){
 			pool.query("SELECT * FROM vacancies", function(err, rows, fields){
-				c.log(rows)
 				if (rows != undefined){
-					console.log('               affectedRows : '+ rows.affectedRows)
+					console.log('AllRows = '+ rows.length)
+					// console.log('solution = '+ JSON.stringify( rows[0], null, 4)  )
 				}
-				if (err) throw err;
+				if (err){ 
+					throw err;
+				}else{
+					callback(rows);
+				}
 			});
 		}
 	}
