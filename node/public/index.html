@@ -3,11 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>AngularJS</title>
-	<script type="text/javascript" src="./js/libs/angular.js"></script>
-	<script type="text/javascript" src="./js/main_controller.js"></script>
+	<script type="text/javascript" src="./scripts/libs/angular.js"></script>
+	<script type="text/javascript" src="./scripts/libs/angular-route.js"></script>
 	
+	<script type="text/javascript" src="./scripts/app.js"></script>
+	<script type="text/javascript" src="./scripts/controllers/vacancyTable.js"></script>
 </head>
-<body ng-app="DemoApp" ng-init="name = 'LoftBlog'">
+<body ng-app="vacancyTable">
 	<input type="text" name="input text" ng-model="value">
 	{{value}}
 	<br>
@@ -15,7 +17,7 @@
 	<span ng-show="showText">text that we'll see</span>
 
 
-	<div ng-controller="MainController">
+	<!-- <div ng-controller="MainController">
 		<input type="text" ng-model="name" ng-keyup="nameChange()">
 		<p ng-bind="greeting"></p>
 		<p>{{name}}</p>
@@ -27,6 +29,8 @@
 			<p>{{phone.snippet}}</p>
 		</li>
 	</ul>
+ -->
+	<div class="container" ng-view style="border:1px solid red;"></div>
 
 
 

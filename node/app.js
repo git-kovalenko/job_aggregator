@@ -64,8 +64,14 @@ var scrapper = require('./scrapper_zombie')(database, browser, moment, cheerio, 
 	c.log(result[0])
 });*/
 
+var path = require('path');
+var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
  
 app.get('/', function (req, res) {
   res.send('Hello World')
