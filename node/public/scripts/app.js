@@ -4,7 +4,7 @@ var vacancyTable = angular.module("vacancyTable", ['ngRoute']);
 vacancyTable.config(function($routeProvider) {
 	$routeProvider.
 		when('/table', {
-			templateUrl: 'vacancyTable.html',
+			templateUrl: 'views/vacancyTable.html',
 			controller: 'getAllTable'
 		}).
 		otherwise({
