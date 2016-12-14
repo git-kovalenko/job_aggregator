@@ -7,6 +7,10 @@ vacancyTable.config(function($routeProvider) {
 			templateUrl: 'views/vacancyTable.html',
 			controller: 'getAllTable'
 		}).
+		when('/tablesolo', {
+			templateUrl: 'views/tablesolo.html',
+			controller: 'tablesolo'
+		}).
 		otherwise({
 			redirectTo: '/'
 		});	
