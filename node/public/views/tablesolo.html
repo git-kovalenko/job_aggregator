@@ -6,11 +6,16 @@
 <!-- <div ng-app="vacancyTable" ng-init="name = 'LoftBlog'"> -->
 
 	<!-- <div id="testApp" ng-controller="tablesolo"  ng-cloak> -->
-	<div id="testApp" ng-cloak>
+	<div id="firstId" ng-cloak>
 		<!-- <input type="text" ng-model="name" ng-keyup="nameChange()"> -->
-sortable
+sortable2
 		<p>{{rows}}</p>
 
+
+
+	</div>
+
+	<div id="testApp" ng-cloak>
 		<solo-table items-on-page = "10" make-sortable>
 
 			<input placeholder="Filter by all columns" type="text" name="id" ng-model="filterModel">
@@ -64,31 +69,7 @@ sortable
 		</solo-table>
 
 
-		<script>
-
-			angular.module("myFilters", [])
-
-				.filter("highlight", ['$sce', function($sce){
-						return function(text, search){
-
-							if (!search)
-								return text;
-
-							var re = new RegExp('('+ search +')', 'gi');
-							var out = text.replace(re, "<strong style='color: red;'>$1</strong>");
-
-							return $sce.trustAsHtml(out);
-						};
-					}]);
-
-			// Здесь приведен код, упрощающий создание нового AngularJS приложения
-			// Создаем приложение с именем example, вставляем его в элемент testApp,
-			// добавляем в него таблицу
-			AppFactory("testApp", "example", ["solo.table", "myFilters", "ngSanitize"]);
-
-		</script>
-
-
+		
 
 	</div>
 <!-- </div> -->
