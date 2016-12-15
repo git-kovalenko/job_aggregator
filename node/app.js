@@ -78,7 +78,7 @@ app.get('/', function (req, res) {
 });
 app.get('/getAll', function (req, res) {
 	database.getAll(function(result){
-  		res.send(result[0]	)
+  		res.send(result	)
 	});
 });
  

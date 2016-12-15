@@ -1,6 +1,9 @@
 .container{
 	border:1px solid red;
 }
+.bold{
+	font-weight: bold;
+}
 .solo-table-sort-asc > .solo-column-arrow{
 	position: relative;
 	top: 10px;

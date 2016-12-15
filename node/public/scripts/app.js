@@ -1,7 +1,7 @@
 "use strict"
-// var vacancyTable = angular.module("vacancyTable", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
+var vacancyTable = angular.module("vacancyTable", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
 
-AppFactory("firstId", "vacancyTable", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
+
 
 
 
@@ -36,7 +36,4 @@ vacancyTable.config(function($routeProvider) {
 						};
 					}]);
 
-			// Здесь приведен код, упрощающий создание нового AngularJS приложения
-			// Создаем приложение с именем example, вставляем его в элемент testApp,
-			// добавляем в него таблицу
-			AppFactory("testApp", "example", ["solo.table", "myFilters", "ngSanitize"]);
+			
