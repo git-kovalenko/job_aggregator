@@ -31,20 +31,20 @@ try{
 				date: '0',
 				p: 1
 			},
-			tableRowsSelector: '.search-list-in .vacancy-item',
+			tableRowsSelector: '#serp_table_wrapper .vacancy_wrapper',
 			cheerioGetters: function(tr){
-				var title = tr.find('.position h2').text();
-				var url = tr.find('.position a').prop('href');
+				var title = tr.find('.h2Position').text();
+				var url = tr.find('.serp_vacancy-top a').prop('href');
 				return{
 					key: title + url.match(/^.+\?|^.+\//),
 					title: title,
 					url: url,
-					short_info: tr.find('.search-text').text(),
+					short_info: tr.find('.description').text(),
 					zp: tr.find('.salary').text(),
-					company: tr.find("[itemprop='hiringOrganization']").text(),
+					company: tr.find('.company-name').text(),
 				}
 			}
-		},
+		}/*,
 		rabota_ua:{
 			domain: 'http://rabota.ua',
 			url: 'http://rabota.ua/jobsearch/vacancy_list',
@@ -56,21 +56,21 @@ try{
 				parentId: categories[grabOptions.category]['rabota_ua'],
 				pg: 1
 			},
-			tableRowsSelector: '.vv .v',
+			tableRowsSelector: '#content_vacancyList_gridList .f-vacancylist-vacancyblock',
 			cheerioGetters: function(tr){
-				var title = tr.find('.t')[0].children[0].data.trim();
-				var url = tr.find('.t').prop('href');
+				var title = tr.find('h3').text().trim();
+				var url = tr.find('h3 a').prop('href');
 				return{
 					key: title + url.match(/^.+\?|^.+\//),
-					hot: tr.hasClass('h'),
+					hot: tr.find('h3 i').hasClass('fi-hot'),
 					title: title,
 					url: url,
-					short_info: tr.find('div.d').text(),
-					zp: tr.find('.s b').text(),
-					company: tr.find('.s a').text().trim(),
+					short_info: tr.find('.f-vacancylist-shortdescr').text(),
+					zp: tr.find('.-price').text(),
+					company: tr.find('.f-vacancylist-companyname').text().trim(),
 				}
 			}
-		}
+		}*/
 	};
 	// console.log(links)
 }catch(e){
@@ -96,7 +96,7 @@ module.exports = function(database, browser, moment, cheerio, async){
 				chosen: null
 			}
 
-			async.each(links, function(link, callbackEachLink){
+			async.eachSeries(links, function(link, callbackEachLink){
 			//.eachSeries for non parallel
 c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(key) {return links[key] === link})[0])
 				var paginator = link.params[link.paginatorName];
@@ -138,7 +138,7 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 								function() {*/
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
-c.log(tableRows.length)									
+c.log('tableRows.length'+tableRows.length)									
 									/*if (link.paginatorTrigger){
 										
 										browser.fire('.more-btn a', 'mousedown', function(){
@@ -237,7 +237,7 @@ c.log("tableRowsLength = "+ tableRowsLength)
 				
 
 				var timeout = Scrapper.getRandomIntMinutes(timeoutMin, timeoutMax);
-c.log("******************  "+timeout)
+c.log("******************  "+timeout + '  (' + timeout/60000 + ' minutes )')
 				var timeoutId = setTimeout(function() {
 					Scrapper.scrape(timeoutMin, timeoutMax);
 				}, timeout);
