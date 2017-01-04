@@ -5,7 +5,11 @@ var vacancyTable = angular.module("vacancyTable", ["ngRoute", "solo.table", "myF
 
 
 
-vacancyTable.config(function($routeProvider) {
+vacancyTable.config(function($routeProvider, $locationProvider, $httpProvider) {
+	$locationProvider.html5Mode(true);
+	// Expose XHR requests to server
+  	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+	
 	$routeProvider.
 		when('/table', {
 			templateUrl: 'views/vacancyTable.html',
@@ -17,12 +21,11 @@ vacancyTable.config(function($routeProvider) {
 		}).
 		otherwise({
 			redirectTo: '/'
-		});	
+		});
 });
 
 
 			angular.module("myFilters", [])
-
 				.filter("highlight", ['$sce', function($sce){
 						return function(text, search){
 

@@ -44,21 +44,21 @@ var pool  = mysql.createPool(config.mysql);
 var database = require('./database')(pool);
 
 var moment = require('moment');
-var cheerio = require('cheerio');
+/*var cheerio = require('cheerio');*/
 // var request = require('request');
 // var req = request.defaults({'proxy':'http://wsproxy.alfa.bank.int:3128'});
 
 // var grabber = require('./grabber')(database, request, moment, cheerio);
 // grabber.grabe();
 // database.createTable();
-var async = require('async');
+/*var async = require('async');
 var browser = require('zombie');
-
+*/
 // browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
-var scrapper = require('./scrapper_zombie')(database, browser, moment, cheerio, async);
+/*var scrapper = require('./scrapper_zombie')(database, browser, moment, cheerio, async);*/
 // scrapper.scrape(30, 40);
 /*database.getAll(function(result){
 	c.log(result[0])
@@ -76,12 +76,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
   res.send('Hello World')
 });
+
 app.get('/getAll', function (req, res) {
-	database.getAll(function(result){
-  		res.send(result	)
-	});
+  database.getAll(function(result){
+      res.send(result )
+  });
 });
- 
+
+
+
+
+
+
+// the very last route '/*' (details at http://ericclemmons.com/angular/using-html5-not-hash-routes/) 
+app.get('/*', function(req, res) {
+  // AJAX requests are aren't expected to be redirected to the AngularJS app
+  if (req.xhr) {
+    return res.status(404).send(req.url + ' not found');
+  }
+  // `sendfile` requires the safe, resolved path to your AngularJS app
+  // res.sendfile(path.resolve(__dirname + '/public/index.html'));
+  res.sendFile('/public/index.html', { root: __dirname });
+});
 app.listen(3000, function () {
   console.log('Server listening on port 3000!')
 })
