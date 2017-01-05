@@ -12,7 +12,7 @@ sortable2
 		<p>{{rows[0]}}</p>
 
 
-		<solo-table items-on-page = "20" make-sortable>
+		<solo-table items-on-page = "20" make-sortable ng-init="update()" ng-cloak >
 
 			<input placeholder="Filter by all columns" type="text" name="id" ng-model="filterModel">
 
@@ -20,7 +20,7 @@ sortable2
 			<div>Page {{pager.currentPage}} of {{pager.foundPages}}. Total items:  {{pager.found}}</div>
 
 			<!-- Эта таблица обязательно  должна присутствовать в директиве solo-table, что, в общем то, очевидно. -->
-			<table class="table table-striped table-bordered" >
+			<table class="table table-striped table-bordered" ng-cloak ng-if="rows">
 				<thead>
 				<tr>
 					<!-- У каждой колонки, которую мы хотим сортировать,
@@ -63,6 +63,3 @@ sortable2
 
 
 		
-
-	</div>
-<!-- </div> -->
