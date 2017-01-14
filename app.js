@@ -98,6 +98,6 @@ app.get('/*', function(req, res) {
   // res.sendfile(path.resolve(__dirname + '/public/index.html'));
   res.sendFile('/public/index.html', { root: __dirname });
 });
-app.listen(3000, function () {
+app.listen(process.env.PORT || 5000, function () {
   console.log('Server listening on port 3000!')
 })
