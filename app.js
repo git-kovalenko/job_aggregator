@@ -99,5 +99,5 @@ app.get('/*', function(req, res) {
   res.sendFile('/public/index.html', { root: __dirname });
 });
 app.listen(process.env.PORT || 5000, function () {
-  console.log('Server listening on port 3000!')
+  console.log('Server listening on port '+ (process.env.PORT || 5000) +'!')
 })
