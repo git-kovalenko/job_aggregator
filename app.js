@@ -38,11 +38,11 @@ server.listen(port, hostname, () => {
 });*/
 
 
-/*var mysql = require('mysql');
+var mysql = require('mysql');
 var config = require('./config');
 var pool  = mysql.createPool(config.mysql);
 var database = require('./database')(pool);
-*/
+
 var moment = require('moment');
 /*var cheerio = require('cheerio');*/
 // var request = require('request');

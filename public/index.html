@@ -14,10 +14,11 @@
 	<script type="text/javascript" src="./scripts/libs/angular-sanitize.js"></script>
 	<script type="text/javascript" src="./scripts/libs/app.factory.js"></script>
 	
-	<script type="text/javascript" src="./scripts/app.js"></script>
+	<script type="text/javascript" src="./scripts/main.js"></script>
 	<script type="text/javascript" src="./scripts/controllers/vacancyTable.js"></script>
 </head>
-<body ng-app="vacancyTable">
+<body ng-app="mainApp" >
+	{{ale()}}
 	<input type="text" name="input text" ng-model="value">
 	{{value}}
 	<br>

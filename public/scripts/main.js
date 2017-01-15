@@ -1,20 +1,16 @@
 "use strict"
-var vacancyTable = angular.module("vacancyTable", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
+var mainApp = angular.module("mainApp", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
 
-
-
-
-
-vacancyTable.config(function($routeProvider, $locationProvider, $httpProvider) {
+mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 	$locationProvider.html5Mode(true);
 	// Expose XHR requests to server
   	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 	
 	$routeProvider.
-		when('/table', {
-			templateUrl: 'views/vacancyTable.html',
-			controller: 'getAllTable'
-		}).
+		// when('/', {
+		// 	templateUrl: 'index.html',
+		// 	controller: 'main_controller.js'
+		// }).
 		when('/tablesolo', {
 			templateUrl: 'views/tablesolo.html',
 			controller: 'tablesolo'
