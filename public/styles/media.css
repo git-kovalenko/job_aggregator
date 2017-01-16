@@ -1,0 +1,96 @@
+/*==========  Desktop First Method  ==========*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+ .header-contact a {
+  padding: 0 3px;
+ }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+ .header-contact{
+  float: none;
+  font-size: 14px;
+  line-height: 2;
+  height: auto;
+}
+ .header-contact a {
+  display: block;
+ }
+.lang-selector > button{
+ padding: 2px 7px !important;
+ font-size: 14px !important;
+ line-height: 2 !important;
+ height: auto;
+}
+ .header-social-links li {
+ float: left;
+ width: 25%;
+ }
+ .download-cv{
+  position: relative;
+ }
+ .download-cv a{
+  font-size: 40px;
+  display: inline;
+  margin-right: 10px;
+ }
+ .download-cv a span{
+  display: none;
+ }
+
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+ .cv-portreit{
+  background-size: auto 100px;
+  height: auto;
+  padding-left: 0;
+  padding-top: 110px;
+ }
+ .contacts > ul{
+	margin-left: -40px;
+}
+}
+
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+ .header-links {
+  padding-right: 0;
+ }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+ /* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}
