@@ -1,8 +1,8 @@
 "use strict"
 
-mainApp.controller("mainController", function($scope, $http){
+mainApp.controller("mController", function($scope, $http){
 	$scope.ale = function() {
-        alert()
+        console.log('---mController')
     };
     
 });

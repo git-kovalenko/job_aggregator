@@ -118,15 +118,16 @@ header{
 	vertical-align: middle;
 	text-align: center;
 }
-.header-avatar img{
-	object-fit: none;
-  object-position: 0 0;
-  width: 851px;
-  height:797px;
+.header-avatar .avatar-flip{
+	width: 140px;
+	height: 140px;
+	background-image: url('../images/p2.jpg'), url('../images/p3.jpg');
+	background-repeat: no-repeat;
+	background-position:  center;
+	background-size: cover;
 }
-.header-avatar img:hover{
-	/*width: 150px;*/
-	/*background: url('../images/p2.jpg');*/
+.header-avatar .avatar-flip:hover{
+	background-image: url('../images/p3.jpg'), url('../images/p2.jpg');
 }
 
 .header-description{

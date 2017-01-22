@@ -25,16 +25,20 @@
 	<script type="text/javascript" src="./scripts/libs/angular-sanitize.js"></script>
 	<script type="text/javascript" src="./scripts/libs/app.factory.js"></script>
 	
-	<script type="text/javascript" src="./scripts/main.js"></script>
+	<script type="text/javascript" src="./scripts/index.js"></script>
+	<!-- <script type="text/javascript" src="./scripts/main.js"></script>
 	<script type="text/javascript" src="./scripts/controllers/vacancyTable.js"></script>
+	<script type="text/javascript" src="./scripts/controllers/main_controller.js"></script> -->
 </head>
 <body ng-app="mainApp" >
-	{{ale()}}
-	<input type="text" name="input text" ng-model="value">
-	{{value}}
-	<br>
-	<input type="checkbox" name="123213" ng-model="showText">
-	<span ng-show="showText">text that we'll see</span>
+	<div ng-controller="mController">
+		{{ale()}} 
+		<input type="text" name="input text" ng-model="value">
+		{{value}}
+		<br>
+		<input type="checkbox" name="123213" ng-model="showText">
+		<span ng-show="showText">text that we'll see</span>
+	</div >
 	<header>
 		<div class="container">
 			<div class="row">
@@ -88,7 +92,8 @@
 		<div class="container header-container">
 			<div class="row">
 				<div class="header-avatar col-lg-2 col-sm-3 col-xs-12">
-					<img class="img-circle img-thumbnail" src="images/p_double.jpg" alt="portreit"/>
+					<!-- <img class="img-circle img-thumbnail" src="images/p_double.jpg" alt="portreit"/> -->
+					<div class="avatar-flip img-circle img-thumbnail"></div>
 				</div>
 				<div class="header-description col-lg-6 col-sm-6 col-xs-12">
 					<p>

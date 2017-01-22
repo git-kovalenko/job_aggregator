@@ -15,9 +15,11 @@
     "request": "latest",
     "zombie": "latest"
   },
-  "devDependencies": {},
+  "devDependencies": {
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "./node_modules/.bin/gulp"
   },
   "author": "a.kovalenko",
   "license": "MIT"
