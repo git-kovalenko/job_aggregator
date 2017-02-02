@@ -1,0 +1,30 @@
+.container{
+	border:1px solid red;
+}
+.bold{
+	font-weight: bold;
+}
+.solo-table-sort-asc > .solo-column-arrow{
+	position: relative;
+	top: 10px;
+	margin-left: 5px;
+	border-color: black transparent;
+	border-style: solid;
+	border-width: 5px 5px 0px 5px;
+	height: 0px;
+	width: 0px;
+}
+.solo-table-sort-desc > .solo-column-arrow{
+	position: relative;
+	top: -10px;
+	margin-left: 5px;
+	border-color: black transparent;
+	border-style: solid;
+	border-width: 0px 5px 5px 5px;
+	height: 0px;
+	width: 0px;
+}
+
+.solo-table-column-cursor{
+	cursor: pointer;
+}

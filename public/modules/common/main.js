@@ -1,4 +1,5 @@
 "use strict"
+var c = console;
 var mainApp = angular.module("mainApp", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
 
 mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
@@ -8,7 +9,7 @@ mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 	
 	$routeProvider.
 		when('/tablesolo', {
-			templateUrl: 'views/tablesolo.html',
+			templateUrl: 'modules/vacancies/tablesolo.html',
 			controller: 'tablesolo'
 		}).
 		otherwise({

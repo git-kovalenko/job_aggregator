@@ -1,4 +1,5 @@
 "use strict"
+var c = console;
 var mainApp = angular.module("mainApp", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
 
 mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
@@ -8,7 +9,7 @@ mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 	
 	$routeProvider.
 		when('/tablesolo', {
-			templateUrl: 'views/tablesolo.html',
+			templateUrl: 'modules/vacancies/tablesolo.html',
 			controller: 'tablesolo'
 		}).
 		otherwise({
@@ -33,6 +34,37 @@ mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 
 			
 "use strict"
+mainApp.controller("headerController", function($scope){
+    console.log('--headerController')
+    $scope.navProperties= {
+    	flipStart : 50,
+		pageScrolled : false
+	}
+});
+mainApp.directive('appScrollFlip', function(){
+	return{
+		restrict: 'EA',
+		replace: false,
+		link: function(scope, element, attrs){
+			angular.element(window).on('scroll', function() {
+				if(window.pageYOffset > scope.navProperties.flipStart ){
+					if(scope.navProperties.pageScrolled == false){
+						scope.navProperties.pageScrolled = true;
+						scope.$apply();
+					}
+				}else{
+					if(scope.navProperties.pageScrolled == true){
+						scope.navProperties.pageScrolled = false;
+						scope.$apply();	
+					}
+				}
+			});
+		}
+
+	}
+});
+
+"use strict"
 
 mainApp.controller("tablesolo", function($scope, $http){
 	$scope.update = function() {
@@ -40,16 +72,6 @@ mainApp.controller("tablesolo", function($scope, $http){
             .success(function(rows) {
                 $scope.rows = rows;
             });
-    };
-    
-});
-
-
-"use strict"
-
-mainApp.controller("mController", function($scope, $http){
-	$scope.ale = function() {
-        console.log('---mController')
     };
     
 });
