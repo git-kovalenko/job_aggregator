@@ -4,7 +4,7 @@ const concat = require('gulp-concat'); // Склейка файлов
 const sass = require('gulp-sass');
 
 var paths = {
-  scripts: [ 'public/modules/**/*.js'],
+  scripts: [ 'public/modules/common/main.js', 'public/modules/**/*.js'],
   images: 'public/images/*',
   scss: 'public/styles/scss/*.scss'
 };

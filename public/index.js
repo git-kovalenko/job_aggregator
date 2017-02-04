@@ -8,6 +8,22 @@ mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
   	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 	
 	$routeProvider.
+		when('/', {
+			templateUrl: 'modules/home/home.html',
+			controller: 'homeController'
+		}).
+		when('/cv', {
+			templateUrl: 'modules/cv/cv.html',
+			controller: 'cvController'
+		}).
+		when('/portfolio', {
+			templateUrl: 'modules/portfolio/portfolio.html',
+			controller: 'portfolioController'
+		}).
+		when('/contacts', {
+			templateUrl: 'modules/contacts/contacts.html',
+			controller: 'contactsController'
+		}).
 		when('/tablesolo', {
 			templateUrl: 'modules/vacancies/tablesolo.html',
 			controller: 'tablesolo'
@@ -17,6 +33,16 @@ mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		});
 });
 
+mainApp.config(function($provide) {
+    $provide.decorator('$controller', function($delegate) {
+        return function(constructor, locals, later, indent) {
+            if (typeof constructor === 'string' && !locals.$scope.controllerName) {
+                locals.$scope.controllerName =  constructor;
+            }
+            return $delegate(constructor, locals, later, indent);
+        };
+    });
+});
 
 			angular.module("myFilters", [])
 				.filter("highlight", ['$sce', function($sce){
@@ -34,13 +60,53 @@ mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 
 			
 "use strict"
-mainApp.controller("headerController", function($scope){
-    console.log('--headerController')
+mainApp.controller("homeController", function($scope){
+    c.log($scope.controllerName)
+    $scope.$parent.headerTemplate = 'modules/home/homeHeaderTemplate.html';
+});
+
+"use strict"
+mainApp.controller("headerController", ['$scope', '$location', function($scope, $location){
+    c.log("[" + $scope.controllerName +"] got here");
+    
     $scope.navProperties= {
     	flipStart : 50,
 		pageScrolled : false
 	}
-});
+	$scope.isActive = function(destination){
+		return destination === $location.path();
+	}
+	$scope.changeHeader = function(){
+		$scope.$parent.headerTemplate = '';
+	}
+
+}]);
+mainApp.directive("ngBgSlideshow", function($interval) {
+    return {
+        restrict: 'A',
+        scope: {
+            ngBgSlideshow: '&',
+            interval: '=',
+        },
+        templateUrl: 'modules/common/slideshow.html',
+        link: function( scope, elem, attrs ) {
+            scope.$watch( 'ngBgSlideshow', function(val) {
+                scope.images = val();
+                scope.active_image = 0;
+            });
+
+            var change = $interval(function() {
+                scope.active_image++;
+                if( scope.active_image >= scope.images.length )
+                    scope.active_image = 0;
+            }, scope.interval || 1000 );
+        
+            scope.$on('$destroy', function() {
+                $interval.cancel( change );
+            });
+        }
+    };  
+});         
 mainApp.directive('appScrollFlip', function(){
 	return{
 		restrict: 'EA',
@@ -69,10 +135,29 @@ mainApp.directive('appScrollFlip', function(){
 mainApp.controller("tablesolo", function($scope, $http){
 	$scope.update = function() {
         $http.get("/getAll")
-            .success(function(rows) {
-                $scope.rows = rows;
+            .then(function(response) {
+                $scope.rows = response.data;
             });
     };
     
 });
 
+
+"use strict"
+mainApp.controller("cvController", function($scope){
+    $scope.$parent.headerTemplate = 'modules/cv/cvHeaderTemplate.html';
+    
+    
+});
+
+"use strict"
+mainApp.controller("contactsController", function($scope){
+    c.log($scope.controllerName)
+    
+});
+
+"use strict"
+mainApp.controller("portfolioController", function($scope){
+    c.log($scope.controllerName)
+    
+});

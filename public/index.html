@@ -16,11 +16,15 @@
 	<base href="/">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">    
 
+	<!-- <script type="text/javascript" src="libs/jquery-3.1.1.min.js"></script> -->
+	<!-- <script type="text/javascript" src="libs/vegas/vegas.js"></script> -->
+
 	<script type="text/javascript" src="libs/angular.js"></script>
 	<script type="text/javascript" src="libs/angular-route.js"></script>
 	<script type="text/javascript" src="libs/solo.table.js"></script>
 	<script type="text/javascript" src="libs/angular-sanitize.js"></script>
 	<script type="text/javascript" src="libs/app.factory.js"></script>
+
 	
 	<script type="text/javascript" src="./index.js"></script>
 </head>
@@ -33,8 +37,9 @@
 		<input type="checkbox" name="123213" ng-model="showText">
 		<span ng-show="showText">text that we'll see</span>
 	</div > -->
-	<header ng-controller="headerController"  >
-		<div class="container">
+	<header ng-controller="headerController" class="jumbotron-slideshow">
+		<div ng-bg-slideshow="[ 'images/bg_1.jpg', 'images/bg_2.jpg' ]" interval=5000></div>
+		<div class="container" >
 			<div class="row">
 				<div class="btn-group btn-group-xs lang-selector">
 					<button type="button" class="btn btn-primary">Русский</button>
@@ -71,62 +76,22 @@
 				
 				<div class="collapse navbar-collapse" id="mainNavbar">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a  href="#">CV</a></li>
-						<li><a  href="portfolio.html">Portfolio</a></li>
-						<li><a  href="#">Contact</a></li>
+						<li ng-click="changeHeader()" ng-class="{active: isActive('/')}"><a href="/">Home</a></li>
+						<li ng-click="changeHeader()" ng-class="{active: isActive('/cv')}"><a  href="/cv">CV</a></li>
+						<li ng-click="changeHeader()" ng-class="{active: isActive('/portfolio')}"><a  href="/portfolio">Portfolio</a></li>
+						<li ng-click="changeHeader()" ng-class="{active: isActive('/contacts')}"><a  href="/contacts">Contacts</a></li>
+						<li ng-click="changeHeader()" ng-class="{active: isActive('/tablesolo')}"><a  href="/tablesolo">Tablesolo</a></li>
 					</ul>
 				</div>
 				
 
 			</div>
 		</nav>
-<input type="text" ng-model="navProperties.pageScrolled">
-{{navProperties}}			
+		<div ng-include="headerTemplate"></div>
+
 	</header>
-<div class="container">======={{2+2}}</div>
-		<div class="container header-container">
-			<div class="row">
-				<div class="header-avatar col-lg-2 col-sm-3 col-xs-12">
-					<!-- <img class="img-circle img-thumbnail" src="images/p_double.jpg" alt="portreit"/> -->
-					<div class="avatar-flip img-circle img-thumbnail"></div>
-				</div>
-				<div class="header-description col-lg-6 col-sm-6 col-xs-12">
-					<p>
-						Hello I&#039;m Anatoliy, I am a Freelance UI/Front-end Developer currently looking for a permanent job. I&#039;m fluent in HMTL5, CSS3, Javascript/jQuery and Ajax.
-						Also, I&#039;m familiar with PHP, MySQL and Kohana framework.
-					</p>
-				</div>
-				<div class="header-links col-lg-3 col-sm-3 col-xs-12">
-					<ul class="header-social-links">
-						<li>
-							<a class="btn btn-primary pjh-icon pjh-icon-linkedin" href="https://www.linkedin.com/in/kovalenkoanatoliy" target="_blank" data-toggle="tooltip" data-placement="bottom" title="linkedin.com/in/kovalenkoanatoliy">
-								<i class="fa fa-linkedin"></i>
-							</a>
-						</li>
-						<li>
-							<a class="btn btn-primary pjh-icon pjh-icon-phone" href="mailto:a.kovalenko@ukr.net" data-toggle="tooltip" data-placement="bottom" title="a.kovalenko@ukr.net">
-								<i class="fa fa-envelope-o"></i>
-							</a>
-						</li>
-						<li>
-							<a class="btn btn-primary pjh-icon pjh-icon-mail" href="skype:kovalenko.84" data-toggle="tooltip" data-placement="bottom" title="kovalenko.84">
-								<i class="fa fa-skype"></i>
-							</a>
-						</li>
-						<li>
-							<a class="btn btn-primary pjh-icon pjh-icon-twitter" href="https://github.com/git-kovalenko" title="git-kovalenko" target="_blank" data-toggle="tooltip" data-placement="bottom">
-								<i class="fa fa-github-alt"></i>
-							</a>
-						</li>
-					</ul>
 
-				</div>
-
-			</div>
-		</div>
-
-
+		
 
 
 
