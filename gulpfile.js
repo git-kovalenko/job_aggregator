@@ -31,3 +31,17 @@ gulp.task('watch', function() {
     gulp.watch(paths.scss, gulp.parallel('sass'));
     
 });
+
+gulp.task('getLibs', function() {
+    return new Promise(function(resolve, reject) {
+	    gulp.src(['node_modules/bootstrap/dist/**/*'])
+	        .pipe(gulp.dest('public/libs/bootstrap'))
+		
+		gulp.src(['node_modules/font-awesome/css/font-awesome.min.css', 'node_modules/font-awesome/fonts/*'], {base:"./node_modules/font-awesome"})
+	        .pipe(gulp.dest('public/libs/font-awesome'))
+
+
+		resolve();
+	});
+        
+});
