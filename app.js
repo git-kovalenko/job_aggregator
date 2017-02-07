@@ -40,7 +40,14 @@ server.listen(port, hostname, () => {
 
 var mysql = require('mysql');
 var config = require('./config');
-var pool  = mysql.createPool(config.mysql);
+if (process.env.isprod == 'true'){
+  var configDb = config.herokuMysql;
+}else{
+  var configDb = config.mysql;
+}
+c.log(configDb)
+var pool  = mysql.createPool(configDb);
+
 var database = require('./database')(pool);
 
 var moment = require('moment');
