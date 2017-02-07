@@ -12,7 +12,7 @@ c.log("Здравствуйте, уважаемый "
 	+(argv['debug'] ? '. Режим отладки включен.' : "")
 )
 
-// console.log(process.argv)
+console.log(process)
 
 // var util = require('util');
 // console.log(	util.inspect({
@@ -50,7 +50,7 @@ var moment = require('moment');
 
 // var grabber = require('./grabber')(database, request, moment, cheerio);
 // grabber.grabe();
-// database.createTable();
+database.createTable();
 /*var async = require('async');
 var browser = require('zombie');
 */
