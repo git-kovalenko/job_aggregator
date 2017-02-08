@@ -27,8 +27,11 @@ gulp.task('sass', function () {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(paths.scripts, gulp.parallel('js'));
-    gulp.watch(paths.scss, gulp.parallel('sass'));
+    /*gulp.watch(paths.scripts, gulp.parallel('js'));
+    gulp.watch(paths.scss, gulp.parallel('sass'));*/
+
+	gulp.watch(paths.scripts, ['js']);
+    gulp.watch(paths.scss, ['sass']);    
     
 });
 

@@ -12,7 +12,7 @@ c.log("Здравствуйте, уважаемый "
 	+(argv['debug'] ? '. Режим отладки включен.' : "")
 )
 
-console.log(process)
+console.log(process.env)
 
 // var util = require('util');
 // console.log(	util.inspect({
@@ -45,6 +45,7 @@ if (process.env.isprod == 'true'){
 }else{
   var configDb = config.mysql;
 }
+c.log('################################')
 c.log(configDb)
 var pool  = mysql.createPool(configDb);
 

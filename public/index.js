@@ -59,11 +59,6 @@ mainApp.config(function($provide) {
 					}]);
 
 			
-mainApp.controller("homeController", function($scope){
-    c.log($scope.controllerName)
-    $scope.$parent.headerTemplate = 'modules/home/homeHeaderTemplate.html';
-});
-
 "use strict"
 mainApp.controller("headerController", ['$scope', '$location', function($scope, $location){
     c.log("[" + $scope.controllerName +"] got here");
@@ -130,6 +125,30 @@ mainApp.directive('appScrollFlip', function(){
 });
 
 "use strict"
+mainApp.controller("contactsController", function($scope){
+    c.log($scope.controllerName)
+    
+});
+
+"use strict"
+mainApp.controller("cvController", function($scope){
+    $scope.$parent.headerTemplate = 'modules/cv/cvHeaderTemplate.html';
+    
+    
+});
+
+mainApp.controller("homeController", function($scope){
+    c.log($scope.controllerName)
+    $scope.$parent.headerTemplate = 'modules/home/homeHeaderTemplate.html';
+});
+
+"use strict"
+mainApp.controller("portfolioController", function($scope){
+    c.log($scope.controllerName)
+    
+});
+
+"use strict"
 
 mainApp.controller("tablesolo", function($scope, $http){
 	$scope.update = function() {
@@ -141,22 +160,3 @@ mainApp.controller("tablesolo", function($scope, $http){
     
 });
 
-
-"use strict"
-mainApp.controller("cvController", function($scope){
-    $scope.$parent.headerTemplate = 'modules/cv/cvHeaderTemplate.html';
-    
-    
-});
-
-"use strict"
-mainApp.controller("contactsController", function($scope){
-    c.log($scope.controllerName)
-    
-});
-
-"use strict"
-mainApp.controller("portfolioController", function($scope){
-    c.log($scope.controllerName)
-    
-});
