@@ -7,7 +7,7 @@ module.exports = {
 		connectionLimit : 10
 	},
 	herokuMysql:{
-		host: 'localhost',
+		host: 'mysql://b4ebf7ecb812b7:3290c246@us-cdbr-iron-east-04.cleardb.net/heroku_1594ba350a299e7?reconnect=true',
 		database: 'heroku_1594ba350a299e7',
 		user: 'b4ebf7ecb812b7',
 		password: '3290c246',
