@@ -4,7 +4,7 @@ module.exports = function(pool){
 		createTable: function(callback) {
 			pool.query("CREATE TABLE IF NOT EXISTS \
 					`vacancies` (\
-						`key` VARCHAR(1000),\
+						`key` VARCHAR(760),\
 						`title` TEXT,\
 			            `url` TEXT,\
 			            `short_info` TEXT,\
