@@ -12,7 +12,7 @@ c.log("Здравствуйте, уважаемый "
 	+(argv['debug'] ? '. Режим отладки включен.' : "")
 )
 
-console.log(process.env)
+// console.log(process.env)
 
 // var util = require('util');
 // console.log(	util.inspect({
