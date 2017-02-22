@@ -36,7 +36,7 @@ try{
 				var title = tr.find('.h2Position').text();
 				var url = tr.find('.serp_vacancy-top a').prop('href');
 				return{
-					key: title + url.match(/^.+\?|^.+\//),
+					id: title + url.match(/^.+\?|^.+\//),
 					title: title,
 					url: url,
 					short_info: tr.find('.description').text(),
@@ -92,7 +92,7 @@ module.exports = function(database, browser, moment, cheerio, async){
 			Job.prototype = {
 				constructor: Job, 
 				hot: null,
-				read: null,
+				readed: null,
 				chosen: null
 			}
 
