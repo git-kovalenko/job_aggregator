@@ -21,7 +21,7 @@ try{
 		};
 // https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-angular-node-javascript/%D0%9A%D0%B8%D0%B5%D0%B2?date=3&p=2
 	var links = {
-		jooble_org:{
+		/*jooble_org:{
 			domain: 'https://ua.jooble.org',
 			url: 'https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-' + grabOptions.searchString.trim().replace(/-/g, '+').replace(/[\s]+/g, '-'),
 			paginatorName: 'p',
@@ -44,7 +44,7 @@ try{
 					company: tr.find('.company-name').text(),
 				}
 			}
-		}/*,
+		},*/
 		rabota_ua:{
 			domain: 'http://rabota.ua',
 			url: 'http://rabota.ua/jobsearch/vacancy_list',
@@ -61,7 +61,7 @@ try{
 				var title = tr.find('h3').text().trim();
 				var url = tr.find('h3 a').prop('href');
 				return{
-					key: title + url.match(/^.+\?|^.+\//),
+					id: title + url.match(/^.+\?|^.+\//),
 					hot: tr.find('h3 i').hasClass('fi-hot'),
 					title: title,
 					url: url,
@@ -70,7 +70,7 @@ try{
 					company: tr.find('.f-vacancylist-companyname').text().trim(),
 				}
 			}
-		}*/
+		}
 	};
 	// console.log(links)
 }catch(e){

@@ -52,25 +52,24 @@ var pool  = mysql.createPool(configDb);
 var database = require('./database')(pool);
 
 var moment = require('moment');
-/*var cheerio = require('cheerio');*/
+var cheerio = require('cheerio');
 // var request = require('request');
 // var req = request.defaults({'proxy':'http://wsproxy.alfa.bank.int:3128'});
 
 // var grabber = require('./grabber')(database, request, moment, cheerio);
 // grabber.grabe();
-database.createTable();
-/*var async = require('async');
+// database.createTable();
+var async = require('async');
 var browser = require('zombie');
-*/
+
 // browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
-/*var scrapper = require('./scrapper_zombie')(database, browser, moment, cheerio, async);*/
-// scrapper.scrape(30, 40);
-/*database.getAll(function(result){
-	c.log(result[0])
-});*/
+var scrapper = require('./scrapper_zombie')(database, browser, moment, cheerio, async);
+scrapper.scrape(30, 40);
+
+
 
 var path = require('path');
 var bodyParser = require('body-parser');
