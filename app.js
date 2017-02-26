@@ -60,14 +60,63 @@ var cheerio = require('cheerio');
 // grabber.grabe();
 // database.createTable();
 var async = require('async');
-var browser = require('zombie');
+// var browser = require('zombie');
 
 // browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
 
-var scrapper = require('./scrapper_zombie')(database, browser, moment, cheerio, async);
-scrapper.scrape(30, 40);
+
+console.log("++++++++++++++");
+console.log(process.memoryUsage());
+
+/*
+eventEmitter.on('scrapped', function(){
+  console.log("\n");
+  console.log('scrapped executed.');
+  console.log(process.memoryUsage());
+  console.log("\n");
+  
+  var timeout = 0;
+  c.log("******************  "+timeout + '  (' + timeout/60000 + ' minutes )')
+  var timeoutId = setTimeout(function() {
+    var scrapper = require('./scrapper_zombie')(database,  moment, cheerio, eventEmitter);
+    scrapper.scrape();
+    // timeout = scrapper.getRandomIntMinutes(1, 2);
+    timeout = 100;
+    console.log("\n");
+    console.log(process.memoryUsage());
+    console.log("\n");
+  }, timeout);
+
+});
+eventEmitter.emit('scrapped');
+*/
+var session = require('express-session');
+var MongoStore = require('connect-mongo/es5')(session);
+
+var Db = require('mongodb').Db;
+var Server = require('mongodb').Server;
+var ObjectID = require('mongodb').ObjectID;
+var db = new Db('tutor',
+  new Server("localhost", 27017, {safe: true}, {auto_reconnect: true}, {})
+);
+
+db.open(function(){
+  console.log("mongo db is opened!");
+  db.collection('notes', function(error, notes) {
+    db.notes = notes;
+c.log(db.notes)
+  });
+});
+
+
+
+
+
+
 
 
 
@@ -88,6 +137,9 @@ app.get('/getAll', function (req, res) {
   database.getAll(function(result){
       res.send(result )
   });
+  console.log(process.memoryUsage());
+  console.log("                                      ^^^^^^^^^^^^^^^^^");
+
 });
 
 

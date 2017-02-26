@@ -77,10 +77,10 @@ try{
 	console.log('Ошибка ' + e.name + ":" + e.message + "\n" + e.stack);
 }
 //https://jobs.dou.ua/vacancies/?category=Front+End&search=nodejs&city=%D0%9A%D0%B8%D0%B5%D0%B2
-module.exports = function(database, browser, moment, cheerio, async){
+module.exports = function(database,  moment, cheerio, eventEmitter){
 	var Scrapper = {
 		scrape: function(timeoutMin, timeoutMax){
-			
+
 			function Job(options){
 				this.date_from = moment().format("YYYY-MM-DD HH:mm:ss");
 				for(var key in options){
@@ -95,13 +95,14 @@ module.exports = function(database, browser, moment, cheerio, async){
 				readed: null,
 				chosen: null
 			}
-
+			var async = require('async');
 			async.eachSeries(links, function(link, callbackEachLink){
 			//.eachSeries for non parallel
 c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(key) {return links[key] === link})[0])
 				var paginator = link.params[link.paginatorName];
-				
-				async.doWhilst(
+
+				var async2 = require('async');
+				async2.doWhilst(
 					function(callbackDoWhilst){
 						var reqUrl = link.url;
 
@@ -126,63 +127,25 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 
 						c.log(reqUrl);
 						c.log('paginator = '+paginator)
+						
+
+
+						var browser = require('zombie');
 						browser.visit(reqUrl, function (e, browser) {
-							// var injectedScript = browser.document.createElement("script");
-							// injectedScript.setAttribute("type","text/javascript");
-							// injectedScript.setAttribute("src", "http://code.jquery.com/jquery-1.11.0.min.js");
-							// browser.body.appendChild(injectedScript);    
-							/*browser.wait( function(window){
-									c.log( browser.evaluate("typeof $") == "function" )
-									return ( browser.evaluate("typeof $") == "function" )
-								}, 
-								function() {*/
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
 c.log('tableRows.length'+tableRows.length)									
-									/*if (link.paginatorTrigger){
-										
-										browser.fire('.more-btn a', 'mousedown', function(){
-											browser.evaluate("$('.more-btn a').mousedown()");											
-											browser.fire('.more-btn a', 'mouseup', function(){
-												browser.evaluate("$('.more-btn a').mouseup()");
-												$ = cheerio.load(browser.html());
-												c.log('after mouseup =  '+ $(link.tableRowsSelector).length)		
-												tableRows = $(link.tableRowsSelector);
-											});
-										});
-
-										// browser.evaluate("$('.more-btn a').mousedown()");
-										// browser.evaluate("$('.more-btn a').mouseup()");
-										$ = cheerio.load(browser.html());
-										c.log('after all =  '+ $(link.tableRowsSelector).length)		
-										tableRows = $(link.tableRowsSelector);
-
-										// browser.wait(
-										// 	function(window) {
-										// 		$ = cheerio.load(browser.html());
-										// 		c.log('after click =  '+ $(link.tableRowsSelector).length)		
-										// 		return ( $(link.tableRowsSelector).length > tableRows.length )
-										// 	}, 
-										// 	function() {
-										// 		c.log('after wait =  '+ $(link.tableRowsSelector).length)		
-										// 		tableRows = $(link.tableRowsSelector);
-										// 	}
-										// );
-
-
-										
-									}*/
-									
-
+								
 									try{
 										var serieIndex = 0;
-										async.each(tableRows, function(tr, callbackEach){
+										var async3 = require('async');
+										async3.each(tableRows, function(tr, callbackEach){
 												serieIndex = ++serieIndex;
 												var newJob = new Job (link.cheerioGetters( $(tr) ));
 												if(!/^http/.test(newJob.url)){
 													newJob.url = link.domain + newJob.url;
 												}
-console.log(serieIndex +" "+  newJob.title  );	
+// console.log(serieIndex +" "+  newJob.title  );	
 
 
 												database.add(newJob, callbackEach);
@@ -205,11 +168,16 @@ c.log('-------> done eachSeries!')
 									
 								
 
-							// 	}
-							// );
-
-
+							browser.tabs.closeAll();
 						});
+
+
+console.log("\n");
+    console.log(process.memoryUsage());
+    console.log("\n ^^^^^^^^^^^^^^");
+
+
+
 					},
 					function(tableRowsLength){
 c.log("tableRowsLength = "+ tableRowsLength)
@@ -235,12 +203,8 @@ c.log("tableRowsLength = "+ tableRowsLength)
 					c.log('-------> done eachSeriesLink!')
 				}
 				
-
-				var timeout = Scrapper.getRandomIntMinutes(timeoutMin, timeoutMax);
-c.log("******************  "+timeout + '  (' + timeout/60000 + ' minutes )')
-				var timeoutId = setTimeout(function() {
-					Scrapper.scrape(timeoutMin, timeoutMax);
-				}, timeout);
+				eventEmitter.emit('scrapped');
+				
 			});
 
 		},
