@@ -94,6 +94,15 @@ eventEmitter.on('scrapped', function(){
 });
 eventEmitter.emit('scrapped');
 */
+var path = require('path');
+var bodyParser = require('body-parser');
+var express = require('express');
+var app = express();
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 var session = require('express-session');
 var MongoStore = require('connect-mongo/es5')(session);
 
@@ -106,9 +115,39 @@ var db = new Db('tutor',
 
 db.open(function(){
   console.log("mongo db is opened!");
-  db.collection('notes', function(error, notes) {
-    db.notes = notes;
-c.log(db.notes)
+});
+
+db.collection('portfolio', function(error, portfolio) {
+  db.portfolio = portfolio;
+  c.log(db.portfolio)
+});
+
+app.post("/dbPortfolio", function(req, res) {
+  c.log(req.body)
+  db.portfolio.insert(req.body);
+  res.end();
+  c.log('--- inserted :');
+  c.log(req.body)
+});
+
+app.get("/dbPortfolio", function(req,res) {
+  db.portfolio.find(req.query).toArray(function(err, items) {
+    res.send(items);
+    c.log('--- found :')
+    c.log(items);
+  });
+});
+
+app.delete("/dbPortfolio", function(req,res) {
+  var id = new ObjectID(req.query.id);
+  db.portfolio.remove({_id: id}, function(err){
+    if (err) {
+      console.log(err);
+      res.send("Failed");
+    } else {
+      res.send("Success");
+    }
+    res.end();
   });
 });
 
@@ -118,15 +157,6 @@ c.log(db.notes)
 
 
 
-
-
-var path = require('path');
-var bodyParser = require('body-parser');
-var express = require('express');
-var app = express();
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
  
 app.get('/', function (req, res) {
