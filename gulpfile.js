@@ -42,6 +42,15 @@ gulp.task('getLibs', function() {
 		
 		gulp.src(['node_modules/font-awesome/css/font-awesome.min.css', 'node_modules/font-awesome/fonts/*'], {base:"./node_modules/font-awesome"})
 	        .pipe(gulp.dest('public/libs/font-awesome'))
+		
+		gulp.src(['node_modules/angular-aria/angular-aria.js'], {base:"./node_modules/angular-aria"})
+	        .pipe(gulp.dest('public/libs'))
+		
+		gulp.src(['node_modules/angular-animate/angular-animate.js'], {base:"./node_modules/angular-animate"})
+	        .pipe(gulp.dest('public/libs'))
+	    
+	    gulp.src(['node_modules/angular-material/*'], {base:"./node_modules/angular-material"})
+	        .pipe(gulp.dest('public/libs/angular-material'))
 
 
 		resolve();

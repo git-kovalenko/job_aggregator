@@ -4,6 +4,10 @@
   "description": "about server for angular",
   "main": "index.js",
   "dependencies": {
+    "angular": "^1.6.2",
+    "angular-animate": "^1.6.2",
+    "angular-aria": "^1.6.2",
+    "angular-material": "^1.1.3",
     "async": "latest",
     "body-parser": "^1.15.2",
     "cheerio": "latest",
