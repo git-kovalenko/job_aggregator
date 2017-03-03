@@ -48,6 +48,9 @@ gulp.task('getLibs', function() {
 		
 		gulp.src(['node_modules/angular-animate/angular-animate.js'], {base:"./node_modules/angular-animate"})
 	        .pipe(gulp.dest('public/libs'))
+
+	    gulp.src(['node_modules/angular-messages/angular-messages.js'], {base:"./node_modules/angular-messages"})
+	        .pipe(gulp.dest('public/libs'))
 	    
 	    gulp.src(['node_modules/angular-material/*'], {base:"./node_modules/angular-material"})
 	        .pipe(gulp.dest('public/libs/angular-material'))

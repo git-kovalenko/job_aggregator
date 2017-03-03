@@ -114,12 +114,15 @@ var db = new Db('tutor',
 );
 
 db.open(function(){
-  console.log("mongo db is opened!");
+  if(db.serverConfig.isConnected()){
+    console.log("mongo db is opened!");
+  }else{
+    console.log("mongo db is NOT AVAILABLE!");
+  }
 });
 
 db.collection('portfolio', function(error, portfolio) {
   db.portfolio = portfolio;
-  c.log(db.portfolio)
 });
 
 app.post("/dbPortfolio", function(req, res) {

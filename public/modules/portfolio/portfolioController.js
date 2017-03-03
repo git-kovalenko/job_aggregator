@@ -49,5 +49,5 @@ mainApp.controller("portfolioController", function($scope, $http){
         );
     }
 
-    // $scope.add();
+    $scope.add();
 });

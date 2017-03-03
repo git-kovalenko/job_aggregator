@@ -1,6 +1,6 @@
 "use strict"
 var c = console;
-var mainApp = angular.module("mainApp", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
+var mainApp = angular.module("mainApp", ["ngRoute", "solo.table", "myFilters", "ngSanitize", "ngMaterial"]);
 
 mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 	$locationProvider.html5Mode(true);
@@ -59,11 +59,6 @@ mainApp.config(function($provide) {
 					}]);
 
 			
-mainApp.controller("homeController", function($scope){
-    c.log($scope.controllerName)
-    $scope.$parent.headerTemplate = 'modules/home/homeHeaderTemplate.html';
-});
-
 "use strict"
 mainApp.controller("headerController", ['$scope', '$location', function($scope, $location){
     c.log("[" + $scope.controllerName +"] got here");
@@ -130,19 +125,6 @@ mainApp.directive('appScrollFlip', function(){
 });
 
 "use strict"
-
-mainApp.controller("tablesolo", function($scope, $http){
-	$scope.update = function() {
-        $http.get("/getAll")
-            .then(function(response) {
-                $scope.rows = response.data;
-            });
-    };
-    
-});
-
-
-"use strict"
 mainApp.controller("cvController", function($scope){
     $scope.$parent.headerTemplate = 'modules/cv/cvHeaderTemplate.html';
     
@@ -153,6 +135,11 @@ mainApp.controller("cvController", function($scope){
 mainApp.controller("contactsController", function($scope){
     c.log($scope.controllerName)
     
+});
+
+mainApp.controller("homeController", function($scope){
+    c.log($scope.controllerName)
+    $scope.$parent.headerTemplate = 'modules/home/homeHeaderTemplate.html';
 });
 
 mainApp.controller("portfolioController", function($scope, $http){
@@ -206,5 +193,18 @@ mainApp.controller("portfolioController", function($scope, $http){
         );
     }
 
-    // $scope.add();
+    $scope.add();
 });
+
+"use strict"
+
+mainApp.controller("tablesolo", function($scope, $http){
+	$scope.update = function() {
+        $http.get("/getAll")
+            .then(function(response) {
+                $scope.rows = response.data;
+            });
+    };
+    
+});
+
