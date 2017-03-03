@@ -18,14 +18,21 @@ mainApp.controller("portfolioController", function($scope, $http){
 
 
     $scope.add = function() {
-        var note = {
+        var note = [{
             order: $scope.order ++,
             date: new Date(),
             title: "Ray tracing in integrating sphere",
             img: "sphere.jpg",
             text: "В проекте реализовано 2-мерное моделирование лучей светодиода внутри сферы, покрытой изнутри светорассеивающим материалом. Сфера имеет перегородку, размер и положение которой можно изменять мышью. Для отрисовки сферы использован <canvas>, график освещенности выводится с помощью JS библиотеки AmCharts или Google Charts.",
             page: "sphere.3d-foto.in.ua"
-        };
+        },{
+            order: $scope.order ++,
+            date: new Date(),
+            title: "Work wear database",
+            img: "id_reader.jpg",
+            text: "Проект разработан для учета оборота спецодежды между подрядчиком и заказчиком. Веб интерфейс работает со сканером штрих-кодов, автоматически связываясь с базой данных MySQL на сервере. Реализовано разграничение прав пользователей, учтены все требования заказчика по взаимодействию пользователей с базой данных, в том числе импорт в базу данных из .txt файла, а также выборка по параметрам с генерацией отчета в формате файла Excel.",
+            page: "idreader.3d-foto.in.ua"
+        }];
         $http.post("/dbPortfolio", note).then(
             function() {
                 update();
