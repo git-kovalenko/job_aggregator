@@ -43,6 +43,10 @@ gulp.task('getLibs', function() {
 		gulp.src(['node_modules/font-awesome/css/font-awesome.min.css', 'node_modules/font-awesome/fonts/*'], {base:"./node_modules/font-awesome"})
 	        .pipe(gulp.dest('public/libs/font-awesome'))
 		
+		
+		gulp.src(['node_modules/angular/angular.js'], {base:"./node_modules/angular"})
+	        .pipe(gulp.dest('public/libs'))
+		
 		gulp.src(['node_modules/angular-aria/angular-aria.js'], {base:"./node_modules/angular-aria"})
 	        .pipe(gulp.dest('public/libs'))
 		

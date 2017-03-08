@@ -16,11 +16,11 @@
          * but the previously active one fades out to reveal the visible one
          * below */
         transition: opacity 1s;
-        opacity: 0;
+        opacity: 1;
         
         &.visible {
             transition: none;
-            opacity: 1;
+            opacity: 0.5;
             z-index: -1;
         }
     }   

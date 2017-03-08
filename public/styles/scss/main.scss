@@ -18,7 +18,7 @@
 	opacity: 1;
 }
 html{
-	height: 100%;
+
 }
 body input:focus:required:invalid,
 body textarea:focus:required:invalid {
@@ -31,7 +31,6 @@ body textarea:required:valid {
 body {
 	font-family: "RobotoRegular", sans-serif;
 	font-size: 16px;
-	background: lightgray;
 }
 
 .main{

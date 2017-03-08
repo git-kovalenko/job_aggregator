@@ -1,6 +1,6 @@
 "use strict"
 var c = console;
-var mainApp = angular.module("mainApp", ["ngRoute", "solo.table", "myFilters", "ngSanitize"]);
+var mainApp = angular.module("mainApp", ["ngRoute", "solo.table", "myFilters", "ngSanitize", "ngMaterial"]);
 
 mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 	$locationProvider.html5Mode(true);
