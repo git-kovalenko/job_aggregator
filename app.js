@@ -116,7 +116,7 @@ var db = new Db('tutor',
 db.open(function(){
   if(db.serverConfig.isConnected()){
     console.log("mongo db is opened!");
-    // db.portfolio.createIndex( { "title": 1 }, { unique: true } );
+    db.portfolio.createIndex( { "title": 1 }, { unique: true } );
   }else{
     console.log("mongo db is NOT AVAILABLE!");
   }
@@ -127,13 +127,13 @@ db.collection('portfolio', function(error, portfolio) {
 });
 
 app.post("/dbPortfolio", function(req, res) {
-  db.portfolio.insert(req.body);
+  // db.portfolio.insert(req.body);
   
-/*  for(var item in req.body){
+  for(var item in req.body){
     c.log('------------------------')
     db.portfolio.update({}, req.body[item], {upsert:true});
   }
-*/ 
+ 
 
   res.end();
   c.log('--- inserted :');

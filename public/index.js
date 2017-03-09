@@ -59,11 +59,6 @@ mainApp.config(function($provide) {
 					}]);
 
 			
-mainApp.controller("homeController", function($scope){
-    c.log($scope.controllerName)
-    $scope.$parent.headerTemplate = 'modules/home/homeHeaderTemplate.html';
-});
-
 "use strict"
 mainApp.controller("headerController", ['$scope', '$location', function($scope, $location){
     c.log("[" + $scope.controllerName +"] got here");
@@ -130,17 +125,10 @@ mainApp.directive('appScrollFlip', function(){
 });
 
 "use strict"
-
-mainApp.controller("tablesolo", function($scope, $http){
-	$scope.update = function() {
-        $http.get("/getAll")
-            .then(function(response) {
-                $scope.rows = response.data;
-            });
-    };
+mainApp.controller("contactsController", function($scope){
+    c.log($scope.controllerName)
     
 });
-
 
 "use strict"
 mainApp.controller("cvController", function($scope){
@@ -149,10 +137,9 @@ mainApp.controller("cvController", function($scope){
     
 });
 
-"use strict"
-mainApp.controller("contactsController", function($scope){
+mainApp.controller("homeController", function($scope){
     c.log($scope.controllerName)
-    
+    $scope.$parent.headerTemplate = 'modules/home/homeHeaderTemplate.html';
 });
 
 mainApp.controller("portfolioController", function($scope, $http){
@@ -163,7 +150,7 @@ mainApp.controller("portfolioController", function($scope, $http){
     var update = function() {
         $http.get("/dbPortfolio").then(
         	function(resp) {
-                $scope.portfolio = resp;
+                $scope.portfolio = resp.data;
             },
             function(resp) {
                 $scope.error = resp.statusText;
@@ -213,5 +200,18 @@ mainApp.controller("portfolioController", function($scope, $http){
         );
     }
 
-    // $scope.add();
+    $scope.add();
 });
+
+"use strict"
+
+mainApp.controller("tablesolo", function($scope, $http){
+	$scope.update = function() {
+        $http.get("/getAll")
+            .then(function(response) {
+                $scope.rows = response.data;
+            });
+    };
+    
+});
+

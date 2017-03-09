@@ -6,7 +6,7 @@ mainApp.controller("portfolioController", function($scope, $http){
     var update = function() {
         $http.get("/dbPortfolio").then(
         	function(resp) {
-                $scope.portfolio = resp;
+                $scope.portfolio = resp.data;
             },
             function(resp) {
                 $scope.error = resp.statusText;
@@ -56,5 +56,5 @@ mainApp.controller("portfolioController", function($scope, $http){
         );
     }
 
-    // $scope.add();
+    $scope.add();
 });
