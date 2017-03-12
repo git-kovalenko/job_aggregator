@@ -126,17 +126,18 @@ db.collection('portfolio', function(error, portfolio) {
   db.portfolio = portfolio;
 });
 
-app.post("/dbPortfolio", function(req, res) {
-  // db.portfolio.insert(req.body);
+app.post("/dbPortfolioAdd", function(req, res) {
+  db.portfolio.insert(req.body);
   
-  for(var item in req.body){
+  /*for(var item in req.body){
     c.log('------------------------')
     db.portfolio.update({}, req.body[item], {upsert:true});
   }
- 
+ */
 
-  res.end();
   c.log('--- inserted :');
+  // c.log(req.body);
+  res.end();
 });
 
 app.get("/dbPortfolio", function(req,res) {

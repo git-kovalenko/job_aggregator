@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<title>Integrating Sphere</title>
+	<meta name="keywords" content="Integrating Sphere analysis" />
+	<meta name="description" content="Some analysis of the Integrating Sphere fixture effect" />
+	<link href="style.css" rel="stylesheet">
+	
+	<script src="js/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script> 
+
+	<script src="js/all_simple.js"></script>
+	<script src="js/diagram_1.js"></script>
+
+	<script src="js/besier.js"></script>
+	<script src="amcharts/amcharts.js"></script>
+    <script src="amcharts/serial.js"></script>
+	<script src="js/diagram_2_amchart.js"></script>	
+	
+	<script>
+		google.load("visualization", "1", {packages:["corechart"]});
+		google.setOnLoadCallback(drawChart);
+	</script>
+	
+</head>
+
+<body>
+	<header class="header">
+		<p class="logo"> 
+			<strong>Integrating Sphere</strong>
+		</p>
+		<h1>2-мерный расчет хода лучей в интегрирующей сфере со светодиодом и блендой</h1>
+	</header>
+
+<div class="wrapper">	
+	<aside class="left-sidebar">
+		<h2>Установка параметров</h2>
+		
+		<p>Количество отражений:</p>
+		<input id="reflects" type="range" min="0" max="5" step="1" value="2"/>
+		<span id="reflects_span"></span>
+		
+		<p>Дискретность:</p>
+		<input id="discretisation" type="range" min="1" max="20" step="1" value="5" />
+		<span id="discretisation_span"></span>
+		
+		<p>Коэффициент отражения:</p>
+		<input id="reflectance" type="range" min="90" max="99" step="1" value="95"/>
+		<span id="reflectance_span"></span>
+		
+		<p>Аппертурный угол источника:</p>
+		<input id="source_angle" type="range" min="1" max="180" step="1" value="50"/>
+		<span id="source_angle_span"></span>
+		
+		<button class="buttons">Расчёт</button>
+	</aside><!-- .left-sidebar -->
+	
+	<main class="content">
+		<canvas id="canvas1"></canvas>
+		
+		<h2 id="title_amchart"></h2>
+		<div id="chart_div_amchart"></div>
+		
+		<button class="add_diagram">Отобразить на Google Charts</button>
+		<div id="chart_div_google"></div>
+		
+	</main>
+	
+</div><!-- .wrapper -->
+
+<footer class="footer">
+	<strong>© 2014 Anatoliy Kovalenko.</strong> <noindex><br>
+	<a href="mailto:a.kovalenko@ukr.net">a.kovalenko@ukr.net</a> </noindex>
+</footer><!-- .footer -->
+
+</body>
+</html>

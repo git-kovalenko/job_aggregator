@@ -56,6 +56,10 @@ mainApp.config(function($provide) {
 
 							return $sce.trustAsHtml(out);
 						};
-					}]);
-
-			
+					}])
+				.filter('typeof', function() {
+				return function(obj) {
+					return typeof obj
+				};
+			});
+				

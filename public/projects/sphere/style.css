@@ -1,0 +1,142 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html {
+	min-height: 100%;
+	background: lightgray;
+}
+
+body {
+	margin: 0 auto;
+	font: normal 16px Georgia, Tahoma, Verdana, Arial, sans-serif;
+	min-height: 100%;
+	max-width: 1400px;
+	background: #fff;
+}
+
+.wrapper {
+	display: flex;
+	justify-content: center;
+	min-height: 100%;
+	height: 1%;
+	margin: 0 5px;
+}
+h1{
+	font-size: 18px;
+	display: inline;
+	margin-left: 80px;
+	vertical-align: middle;
+	width: 80%;
+	text-align: center;
+}
+h2{
+	font-size: 18px;
+	text-align: center;
+}
+
+
+/* Header
+-----------------------------------------------------------------------------*/
+.header {
+	height: 50px;
+	line-height: 50px;
+	border: 2px solid #f59628;
+	border-radius: 10px;
+	background: linear-gradient(to top, white, skyblue);
+	margin: 0 5px 2px 5px;
+}
+.logo{
+	
+	display: inline-block;
+	vertical-align: middle;
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	margin-left: 2.5%;
+	background: linear-gradient(to bottom, white, #FF6600);
+	border-radius: 50%;
+	text-align: center;
+}
+.logo strong{
+	vertical-align: middle;
+	text-shadow: 1px 1px 1px yellow;
+}
+
+
+/* Content
+-----------------------------------------------------------------------------*/
+.content {
+	min-height: 100%;
+	width: 1010px;
+	border: 2px solid #c93a0e;
+	border-radius: 10px;
+	margin-left: 2px;
+}
+
+#canvas1{
+	margin: 5px;
+	background: white;
+}
+
+#chart_div_amchart{
+	width: 1000px; 
+	height: 600px;
+	margin-left: 10px;
+}
+
+.add_diagram{
+	margin: 10px;
+	padding: 5px;
+	border-radius: 5px;
+}
+.add_diagram:hover{
+	border-color: red;
+	text-shadow: 1px 1px 1px #3e9fb0;
+	cursor: pointer;
+}
+
+#chart_div_google { 
+	width: 1000px; 
+	height: 500px;
+	display: none;
+}
+
+/* Left Sidebar
+-----------------------------------------------------------------------------*/
+.left-sidebar {
+	flex-grow: 1;
+	padding-bottom: 10px;
+	border: 2px solid #3e9fb0;
+	border-radius: 10px;
+	background: #eee0c3;
+}
+.left-sidebar > input{
+	width: 70%;
+}
+
+.left-sidebar > *{
+	margin: 10px 5px 0 10px;
+}
+.buttons{
+	display: block;
+	padding: 5px;
+	border-radius: 5px;
+}
+.buttons:hover{
+	border-color: red;
+	text-shadow: 1px 1px 1px #3e9fb0;
+	cursor: pointer;
+}
+
+
+/* Footer
+-----------------------------------------------------------------------------*/
+.footer {
+	border: 2px solid green;
+	background: linear-gradient(to top, lightgreen, white);
+	border-radius: 10px;
+	padding: 5px 0;
+	margin: 2px 5px;
+	text-align: center;
+}
