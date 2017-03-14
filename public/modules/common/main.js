@@ -58,8 +58,19 @@ mainApp.config(function($provide) {
 						};
 					}])
 				.filter('typeof', function() {
-				return function(obj) {
-					return typeof obj
-				};
-			});
+					return function(obj) {
+						return typeof obj
+					};
+				}).filter('getUnique', function() {
+					return function(obj, prop) {
+						var result = []
+						for (var item in obj){
+							var arr = obj[item][prop]
+							for(var i = 0; i < arr.length; i++){
+								if (result.indexOf(arr[i]) == -1) result.push(arr[i]);
+							}
+						}
+						return result
+					};
+				});
 				

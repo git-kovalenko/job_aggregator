@@ -58,10 +58,21 @@ mainApp.config(function($provide) {
 						};
 					}])
 				.filter('typeof', function() {
-				return function(obj) {
-					return typeof obj
-				};
-			});
+					return function(obj) {
+						return typeof obj
+					};
+				}).filter('getUnique', function() {
+					return function(obj, prop) {
+						var result = []
+						for (var item in obj){
+							var arr = obj[item][prop]
+							for(var i = 0; i < arr.length; i++){
+								if (result.indexOf(arr[i]) == -1) result.push(arr[i]);
+							}
+						}
+						return result
+					};
+				});
 				
 "use strict"
 mainApp.controller("headerController", ['$scope', '$location', function($scope, $location){
@@ -164,10 +175,29 @@ mainApp.controller("portfolioController", function($scope, $http){
     };
     update();
 
+$scope.ttt = $scope.portfolio|getUnique:'technologies'
 
     $scope.add = function() {
         var notes = [{
-            order: $scope.order ++,
+            order: 7,
+            date: new Date(),
+            title: "Alfa Bank + Wargaming card emitting project",
+            img: "karta_tankista.png",
+            text: "Joint project between Alfa Bank and Wargaming for contragent registration, emitting game debit cards and delivery logistic system for them. I can't show code samples here due to Non-disclosure agreement.",
+            restricted: 'true',
+            link: "https://alfabank.ua/en/private-persons/pakety-uslug/WOT",
+            technologies: [ 'Groovy', 'Grails', 'SOAP', 'Html/CSS', 'JS/Jquery']
+        },{
+            order: 6,
+            date: new Date(),
+            title: "Alfa Bank CRM project for Service packages",
+            img: "platinum.png",
+            text: "CRM integrated web application for registration of package cards, deposits and other card manipulations. Application works directly with bank SOAP microservices, which handle customer accounts and other private information, therefore it has strong sequrity requirements. Non-disclosure agreement forbids me from listing work samples here.",
+            restricted: 'true',
+            technologies: [ 'Groovy', 'Grails', 'SOAP', 'Html/CSS', 'JS/Jquery']
+
+        },{
+            order: 5,
             date: new Date(),
             title: "Official site of ICTV channel",
             img: "ictv.jpg",
@@ -177,7 +207,7 @@ mainApp.controller("portfolioController", function($scope, $http){
             technologies: ['Html/CSS', 'JS/Jquery', 'Wordpress']
 
         },{
-            order: $scope.order ++,
+            order: 1,
             date: new Date(),
             title: "Responsive page on clear CSS",
             img: "helth.jpg",
@@ -187,7 +217,7 @@ mainApp.controller("portfolioController", function($scope, $http){
             technologies: ['Html/CSS']
 
         },{
-            order: $scope.order ++,
+            order: 2,
             date: new Date(),
             title: "Web page with sliders",
             img: "bonfire.jpg",
@@ -197,7 +227,7 @@ mainApp.controller("portfolioController", function($scope, $http){
             technologies: ['Html/CSS','JS/Jquery']
 
         },{
-            order: $scope.order ++,
+            order: 3,
             date: new Date(),
             title: "Ray tracing in integrating sphere",
             img: "sphere.jpg",
@@ -207,7 +237,7 @@ mainApp.controller("portfolioController", function($scope, $http){
             technologies: ['Html/CSS','JS/Jquery', 'AmCharts', 'Google Charts']
 
         },{
-            order: $scope.order ++,
+            order: 4,
             date: new Date(),
             title: "Work wear database",
             img: "id_reader.jpg",
