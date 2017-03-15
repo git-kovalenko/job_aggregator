@@ -163,7 +163,8 @@ header {
   background-color: rgba(15, 113, 113, 0.6);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  margin: 5px 15px; }
 
 .header-social-links {
   list-style-type: none;

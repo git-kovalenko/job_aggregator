@@ -1,12 +1,16 @@
 mainApp.controller("portfolioController", function($scope, $http){
     c.log($scope.controllerName)
     
+    $scope.$parent.headerTemplate = 'modules/portfolio/portfolioHeaderTemplate.html';
+    
     $scope.portfolio = [];
+    $scope.$parent.uniqTech = [];
     $scope.order = 0;
     var update = function() {
         $http.get("/dbPortfolio").then(
-        	function(resp) {
+            function(resp) {
                 $scope.portfolio = resp.data;
+                $scope.getUniqProp($scope.portfolio, 'technologies', $scope.$parent.uniqTech )
             },
             function(resp) {
                 $scope.error = resp.statusText;
@@ -15,11 +19,31 @@ mainApp.controller("portfolioController", function($scope, $http){
         )
     };
     update();
+    
+    $scope.getUniqProp = function(obj, prop, result) {
+        for (var item in obj){
+            var arr = obj[item][prop]
+            for(var i = 0; i < arr.length; i++){
+                if (result.indexOf(arr[i]) == -1) result.push(arr[i]);
+            }
+        }
+        return result
+    }
 
-$scope.ttt = $scope.portfolio|getUnique:'technologies'
+
 
     $scope.add = function() {
         var notes = [{
+            order: 8,
+            date: new Date(),
+            title: "This site",
+            img: "thissite.png",
+            text: "This site besides information about me contains the page for monitoring and sorting of current vacancies.",
+            restricted: 'false',
+            git: "https://github.com/git-kovalenko/job_aggregator",
+            link: "http://scriptforge.herokuapp.com/tablesolo",
+            technologies: [ 'NodeJS', 'AngularJS', 'Angular-material', 'expressJS', 'MongoDB', 'MySQL', 'Bootstrap', 'JS/Jquery']
+        },{
             order: 7,
             date: new Date(),
             title: "Alfa Bank + Wargaming card emitting project",

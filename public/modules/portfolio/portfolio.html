@@ -1,53 +1,34 @@
-portfolio {{controllerName}}
 <md-content class="md-padding" layout="column" layout-gt-md="row" layout-wrap layout-align="space-between stretch">
-    <!-- <div flex-xs flex-gt-xs="50" layout="column"> -->
-		
 
-		<md-chips ng-model="ttt" name="technology" readonly="true" md-removable="false">
-	        <md-chip-template>
-	        	<em><i class="fa fa-wrench text-info"></i></em>
-	        	<strong>{{$chip}}</strong>
-	        </md-chip-template>
-	    </md-chips>
-
-		<!-- {{portfolio|getUnique:'technologies'}} -->
-
-
-			<md-card ng-repeat="card in portfolio | orderBy: 'order':'reverse'" style="flex:48%" layout-align="space-between start">
-				<md-card-title flex="nogrow">
-					<md-card-title-text>
-						<a href="{{card.link}}" target="_blank">
-							<span class="md-headline">{{card.title}}</span>
-						</a>
-					<!-- <span class="md-subhead">Small</span> -->
-					</md-card-title-text>
-				</md-card-title>
-				<md-card-content layout="row" layout-align="space-between start">
-					<img ng-src="images/{{card.img}}" flex="40" alt="{{card.img}}" />
-					<md-card-actions layout="column" layout-align="center start" >
-						<p>
-							{{card.text}}
-						</p>
-						<p ng-if="card.git">Репозиторий: <a href="{{card.git}}" target="_blank">{{card.git}}</a></p>
-						<div>Technologies:</div>
-						<md-chips ng-model="card.technologies" name="technology" readonly="true" md-removable="false">
-					        <md-chip-template>
-					        	<em><i class="fa fa-wrench text-info"></i></em>
-					        	<strong>{{$chip}}</strong>
-					        </md-chip-template>
-					    </md-chips>
+	<md-card ng-repeat="card in portfolio | orderBy: 'order':'reverse'" style="flex:48%" layout-align="space-between start">
+		<md-card-title flex="nogrow">
+			<md-card-title-text>
+				<a href="{{card.link}}" target="_blank">
+					<span class="md-headline">{{card.title}}</span>
+				</a>
+			<!-- <span class="md-subhead">Small</span> -->
+			</md-card-title-text>
+		</md-card-title>
+		<md-card-content layout="row" layout-align="space-between start">
+			<img ng-src="images/{{card.img}}" flex="40" alt="{{card.img}}" />
+			<md-card-actions layout="column" layout-align="center start" >
+				<p>
+					{{card.text}}
+				</p>
+				<p ng-if="card.git">Репозиторий: <a href="{{card.git}}" target="_blank">{{card.git}}</a></p>
+				<div>Technologies:</div>
+				<md-chips ng-model="card.technologies" name="technology" readonly="true" md-removable="false">
+			        <md-chip-template>
+			        	<em><i class="fa fa-wrench text-info"></i></em>
+			        	<strong>{{$chip}}</strong>
+			        </md-chip-template>
+			    </md-chips>
 
 
 
-					</md-card-actions>
-				</md-card-content>
-				<span flex></span>
-			</md-card>
-			
-      
-    <!-- </div>
-    <div flex-xs flex-gt-xs="50" layout="column">
-     
-
-    </div> -->
-  </md-content>
+			</md-card-actions>
+		</md-card-content>
+		<span flex></span>
+	</md-card>
+  
+</md-content>
