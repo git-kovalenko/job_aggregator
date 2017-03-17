@@ -1,42 +1,7 @@
-/* font-family: "RobotoRegular"; */
-@font-face {
-  font-family: "RobotoRegular";
-  src: url("../fonts/RobotoRegular/RobotoRegular.eot");
-  src: url("../fonts/RobotoRegular/RobotoRegular.eot?#iefix") format("embedded-opentype"), url("../fonts/RobotoRegular/RobotoRegular.woff") format("woff"), url("../fonts/RobotoRegular/RobotoRegular.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal; }
-
-/* font-family: "RobotoLight"; */
-@font-face {
-  font-family: "RobotoLight";
-  src: url("../fonts/RobotoLight/RobotoLight.eot");
-  src: url("../fonts/RobotoLight/RobotoLight.eot?#iefix") format("embedded-opentype"), url("../fonts/RobotoLight/RobotoLight.woff") format("woff"), url("../fonts/RobotoLight/RobotoLight.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal; }
-
-/* font-family: "RobotoMedium"; */
-@font-face {
-  font-family: "RobotoMedium";
-  src: url("../fonts/RobotoMedium/RobotoMedium.eot");
-  src: url("../fonts/RobotoMedium/RobotoMedium.eot?#iefix") format("embedded-opentype"), url("../fonts/RobotoMedium/RobotoMedium.woff") format("woff"), url("../fonts/RobotoMedium/RobotoMedium.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal; }
-
-/* font-family: "RobotoBold"; */
-@font-face {
-  font-family: "RobotoBold";
-  src: url("../fonts/RobotoBold/RobotoBold.eot");
-  src: url("../fonts/RobotoBold/RobotoBold.eot?#iefix") format("embedded-opentype"), url("../fonts/RobotoBold/RobotoBold.woff") format("woff"), url("../fonts/RobotoBold/RobotoBold.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal; }
-
 /* font-family: "Marmelad"; */
 @font-face {
   font-family: "Marmelad";
-  src: url("../fonts/marmelad/marmelad-regular.eot");
-  src: url("../fonts/marmelad/marmelad-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/marmelad/marmelad-regular.woff") format("woff"), url("../fonts/marmelad/marmelad-regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
+  src: url("myfont.woff2") format("woff2"), url("fonts/marmelad/marmelad-regular.woff") format("woff"), url("fonts/marmelad/marmelad-regular.ttf") format("truetype"); }
 
 .jumbotron-slideshow {
   position: relative;
@@ -95,18 +60,22 @@ header {
   margin-top: 30px;
   background-color: transparent !important; }
 
+.navbar-brand {
+  font-family: Marmelad;
+  text-shadow: 1px 1px 2px black, 0 0 1em darkorange; }
+
 .navbar-default .navbar-brand {
   color: #FFF; }
 
-.navbar-brand {
-  font-family: Marmelad; }
+.navbar-inverse .navbar-brand {
+  /*color: #337ab7;*/ }
 
 .navbar-default .navbar-nav > li > a {
-  color: #adadad; }
+  color: #FFF; }
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #FFF;
+  color: darkorange;
   -webkit-transition: color 0.3s ease-out;
   -moz-transition: color 0.3s ease-out;
   -o-transition: color 0.3s ease-out;
@@ -117,12 +86,17 @@ header {
 .navbar-default .navbar-nav > .active > a:focus {
   color: #FFF;
   background-color: transparent;
-  background-image: none; }
+  background-image: none;
+  text-shadow: 1px 1px 2px black, 0 0 1em darkred; }
 
 .navbar-nav > .active > a,
 .navbar-nav > .active > a:hover,
 .navbar-nav > .active > a:focus {
-  font-weight: 800; }
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: 17px;
+  color: darkorange !important;
+  text-shadow: 1px 1px 2px black, 0 0 1em darkorange; }
 
 .navbar-default {
   background-image: none;
@@ -196,6 +170,11 @@ header {
   background: #FFF;
   color: #000; }
 
+.jumbotron-h1 {
+  font-family: Marmelad;
+  font-size: 16pt;
+  color: greenyellow; }
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important; }
 
@@ -216,7 +195,7 @@ header {
   opacity: 1; }
 
 body {
-  font-family: "RobotoRegular", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px; }
 
 .main {
@@ -275,7 +254,6 @@ body {
 
 .footer-tag {
   color: #fff;
-  font-family: "Marmelad";
   font-size: 14px;
   line-height: 2.1; }
 

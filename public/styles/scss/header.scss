@@ -63,19 +63,25 @@ header{
     background-color: transparent !important;
 }
 
+.navbar-brand {
+    font-family: Marmelad;
+    text-shadow: 1px 1px 2px black, 0 0 1em darkorange;
+}
 .navbar-default .navbar-brand {
     color: #FFF;
 }
-.navbar-brand {
-    font-family: Marmelad;
+.navbar-inverse {
+    .navbar-brand {
+        /*color: #337ab7;*/
+    }
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #adadad;
+    color: #FFF;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    color: #FFF;
+    color: darkorange;
     -webkit-transition: color 0.3s ease-out;
     -moz-transition: color 0.3s ease-out;
     -o-transition: color 0.3s ease-out;
@@ -87,11 +93,16 @@ header{
     color: #FFF;
     background-color: transparent;
     background-image: none;
+    text-shadow: 1px 1px 2px black, 0 0 1em darkred
 }
 .navbar-nav > .active > a,
 .navbar-nav > .active > a:hover,
 .navbar-nav > .active > a:focus {
-    font-weight: 800;
+    font-weight: 600;
+    text-decoration: underline;
+    font-size: 17px;
+    color: darkorange!important;
+    text-shadow: 1px 1px 2px black, 0 0 1em darkorange;
 }
 
 .navbar-default{
@@ -168,4 +179,10 @@ header{
 .header-social-links li:nth-of-type(4) .btn-primary {
     background: #FFF;
     color: #000;
+}
+
+.jumbotron-h1{
+    font-family: Marmelad;
+    font-size: 16pt;
+    color: greenyellow;
 }
