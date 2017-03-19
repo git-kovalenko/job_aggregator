@@ -43,20 +43,23 @@ header{
     line-height: 1.7;
     height: 22px;
     border-radius: 3px;
+    margin-bottom: -23px;
+    margin-top: 5px;
 }
 .header-contact a {
     display: inline-block;
     padding: 0 10px;
     border-radius: 3px; color: #fff;
-    opacity: 0.7;
-
 }
 .header-contact a:hover {
-    opacity: 1;
-    -webkit-transition: opacity 0.3s ease-out;
-    -moz-transition: opacity 0.3s ease-out;
-    -o-transition: opacity 0.3s ease-out;
-    transition: opacity 0.3s ease-out;
+   text-shadow: 1px 1px 2px black, 0 0 1em darkred;
+    -webkit-transition: text-shadow 0.3s ease-out;
+    -moz-transition: text-shadow 0.3s ease-out;
+    -o-transition: text-shadow 0.3s ease-out;
+    transition: text-shadow 0.3s ease-out;
+}
+.navbar{
+    margin-bottom: 25px;
 }
 .navbar-transparent {
     margin-top: 30px;
@@ -66,6 +69,11 @@ header{
 .navbar-brand {
     font-family: Marmelad;
     text-shadow: 1px 1px 2px black, 0 0 1em darkorange;
+    color: #FFF!important;
+}
+
+.navbar-brand:hover {
+  color:darkorange!important;
 }
 .navbar-default .navbar-brand {
     color: #FFF;
@@ -112,9 +120,7 @@ header{
 .navbar-collapse {
     padding-right: 0;
 }
-.navbar-brand > img {
-    display: none;
-}
+
 .nav_portreit{
     float: left;
     margin: -15px 5px 0 0;

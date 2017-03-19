@@ -74,9 +74,8 @@ mainApp.controller("headerController", ['$scope', '$location', function($scope, 
 	$scope.isActive = function(destination){
 		return destination === $location.path();
 	}
-	$scope.changeHeader = function(){
-		$scope.$parent.headerTemplate = '';
-	}
+
+
 
 }]);
 mainApp.directive("ngBgSlideshow", function($interval) {
@@ -127,7 +126,21 @@ mainApp.directive('appScrollFlip', function(){
 
 	}
 });
-
+mainApp.directive('changeHeader', function () {
+    return {
+        restrict: 'A',
+        scope: {
+            'isactive': '='
+        },
+        link: function (scope, element, attrs) {
+            scope.$watch('isactive', function(isactive){
+                if(isactive){
+                    scope.$parent.headerTemplate = attrs['headerlink'];
+                }
+            });
+        }
+    }
+});
 "use strict"
 mainApp.controller("contactsController", function($scope){
     c.log($scope.controllerName)
@@ -136,20 +149,29 @@ mainApp.controller("contactsController", function($scope){
 
 "use strict"
 mainApp.controller("cvController", function($scope){
-    $scope.$parent.headerTemplate = 'modules/cv/cvHeaderTemplate.html';
-    
-    
+    $scope.certificates = [{
+    	img: 'doc/img/angular.jpg',
+    	link: 'doc/AngularJS certificate.pdf'
+    },{
+    	img: 'doc/img/upper.jpg',
+    	link: 'doc/ENG certificate.pdf'
+    },{
+    	img: 'doc/img/upper.jpg',
+    	link: 'doc/ENG certificate.pdf'
+    },{
+    	img: 'doc/img/upper.jpg',
+    	link: 'doc/ENG certificate.pdf'
+    }]
 });
 
 mainApp.controller("homeController", function($scope){
     c.log($scope.controllerName)
-    $scope.$parent.headerTemplate = 'modules/home/homeHeaderTemplate.html';
+   
 });
 
 mainApp.controller("portfolioController", function($scope, $http){
     c.log($scope.controllerName)
     
-    $scope.$parent.headerTemplate = 'modules/portfolio/portfolioHeaderTemplate.html';
     
     $scope.portfolio = [];
     $scope.$parent.uniqTech = [];

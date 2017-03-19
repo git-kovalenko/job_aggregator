@@ -18,7 +18,7 @@
 	opacity: 1;
 }
 html{
-
+    height: auto;
 }
 body input:focus:required:invalid,
 body textarea:focus:required:invalid {
@@ -31,6 +31,7 @@ body textarea:required:valid {
 body {
 	font-family: "Roboto", sans-serif;
 	font-size: 16px;
+    background-color: rgb(245, 245, 245);
 }
 
 .main{
@@ -133,9 +134,12 @@ article:nth-of-type(odd) {
 	color: #CD0206;
 	text-decoration: none;
 }
-.resume ul{
-	list-style: none;
-	margin-left: -15px;
+.resume{
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	ul{
+		list-style: none;
+		margin-left: -15px;
+	}
 }
 .resume ul .fa{
 	color: red;
@@ -147,12 +151,11 @@ article:nth-of-type(odd) {
 }
 .termin {
 	font-weight: 600;
-	font-style: italic;
 	background: linear-gradient(to top, lightblue, transparent);;
 }
 .download-cv{
 	position: absolute;
-	right: 0;
+	right: 5px;
 }
 .download-cv a:first-child{
 	color:	#CD0206;

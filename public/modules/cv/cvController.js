@@ -1,6 +1,16 @@
 "use strict"
 mainApp.controller("cvController", function($scope){
-    $scope.$parent.headerTemplate = 'modules/cv/cvHeaderTemplate.html';
-    
-    
+    $scope.certificates = [{
+    	img: 'doc/img/angular.jpg',
+    	link: 'doc/AngularJS certificate.pdf'
+    },{
+    	img: 'doc/img/upper.jpg',
+    	link: 'doc/ENG certificate.pdf'
+    },{
+    	img: 'doc/img/upper.jpg',
+    	link: 'doc/ENG certificate.pdf'
+    },{
+    	img: 'doc/img/upper.jpg',
+    	link: 'doc/ENG certificate.pdf'
+    }]
 });

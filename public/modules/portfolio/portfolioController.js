@@ -1,7 +1,6 @@
 mainApp.controller("portfolioController", function($scope, $http){
     c.log($scope.controllerName)
     
-    $scope.$parent.headerTemplate = 'modules/portfolio/portfolioHeaderTemplate.html';
     
     $scope.portfolio = [];
     $scope.$parent.uniqTech = [];

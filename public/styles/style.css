@@ -1,3 +1,8 @@
+.certificate a {
+  width: 100%; }
+  .certificate a img {
+    width: 100%; }
+
 /* font-family: "Marmelad"; */
 @font-face {
   font-family: "Marmelad";
@@ -40,21 +45,25 @@ header {
   font-size: 12px;
   line-height: 1.7;
   height: 22px;
-  border-radius: 3px; }
+  border-radius: 3px;
+  margin-bottom: -23px;
+  margin-top: 5px; }
 
 .header-contact a {
   display: inline-block;
   padding: 0 10px;
   border-radius: 3px;
-  color: #fff;
-  opacity: 0.7; }
+  color: #fff; }
 
 .header-contact a:hover {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s ease-out;
-  -moz-transition: opacity 0.3s ease-out;
-  -o-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out; }
+  text-shadow: 1px 1px 2px black, 0 0 1em darkred;
+  -webkit-transition: text-shadow 0.3s ease-out;
+  -moz-transition: text-shadow 0.3s ease-out;
+  -o-transition: text-shadow 0.3s ease-out;
+  transition: text-shadow 0.3s ease-out; }
+
+.navbar {
+  margin-bottom: 25px; }
 
 .navbar-transparent {
   margin-top: 30px;
@@ -62,7 +71,11 @@ header {
 
 .navbar-brand {
   font-family: Marmelad;
-  text-shadow: 1px 1px 2px black, 0 0 1em darkorange; }
+  text-shadow: 1px 1px 2px black, 0 0 1em darkorange;
+  color: #FFF !important; }
+
+.navbar-brand:hover {
+  color: darkorange !important; }
 
 .navbar-default .navbar-brand {
   color: #FFF; }
@@ -104,9 +117,6 @@ header {
 
 .navbar-collapse {
   padding-right: 0; }
-
-.navbar-brand > img {
-  display: none; }
 
 .nav_portreit {
   float: left;
@@ -194,9 +204,13 @@ header {
   color: #666;
   opacity: 1; }
 
+html {
+  height: auto; }
+
 body {
   font-family: "Roboto", sans-serif;
-  font-size: 16px; }
+  font-size: 16px;
+  background-color: whitesmoke; }
 
 .main {
   background-color: #DCDCDC; }
@@ -296,9 +310,11 @@ article:nth-of-type(odd) {
   color: #CD0206;
   text-decoration: none; }
 
-.resume ul {
-  list-style: none;
-  margin-left: -15px; }
+.resume {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+  .resume ul {
+    list-style: none;
+    margin-left: -15px; }
 
 .resume ul .fa {
   color: red; }
@@ -310,12 +326,11 @@ article:nth-of-type(odd) {
 
 .termin {
   font-weight: 600;
-  font-style: italic;
   background: linear-gradient(to top, lightblue, transparent); }
 
 .download-cv {
   position: absolute;
-  right: 0; }
+  right: 5px; }
 
 .download-cv a:first-child {
   color: #CD0206; }

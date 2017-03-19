@@ -9,9 +9,8 @@ mainApp.controller("headerController", ['$scope', '$location', function($scope, 
 	$scope.isActive = function(destination){
 		return destination === $location.path();
 	}
-	$scope.changeHeader = function(){
-		$scope.$parent.headerTemplate = '';
-	}
+
+
 
 }]);
 mainApp.directive("ngBgSlideshow", function($interval) {
@@ -61,4 +60,19 @@ mainApp.directive('appScrollFlip', function(){
 		}
 
 	}
+});
+mainApp.directive('changeHeader', function () {
+    return {
+        restrict: 'A',
+        scope: {
+            'isactive': '='
+        },
+        link: function (scope, element, attrs) {
+            scope.$watch('isactive', function(isactive){
+                if(isactive){
+                    scope.$parent.headerTemplate = attrs['headerlink'];
+                }
+            });
+        }
+    }
 });
