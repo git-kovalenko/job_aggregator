@@ -24,9 +24,9 @@ mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 			templateUrl: 'modules/contacts/contacts.html',
 			controller: 'contactsController'
 		}).
-		when('/tablesolo', {
-			templateUrl: 'modules/vacancies/tablesolo.html',
-			controller: 'tablesolo'
+		when('/vacancies', {
+			templateUrl: 'modules/vacancies/vacancies.html',
+			controller: 'vacancies'
 		}).
 		otherwise({
 			redirectTo: '/'

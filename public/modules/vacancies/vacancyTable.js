@@ -1,6 +1,6 @@
 "use strict"
 
-mainApp.controller("tablesolo", function($scope, $http){
+mainApp.controller("vacancies", function($scope, $http){
 	$scope.update = function() {
         $http.get("/getAll")
             .then(function(response) {

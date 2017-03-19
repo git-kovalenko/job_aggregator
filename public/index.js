@@ -24,9 +24,9 @@ mainApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 			templateUrl: 'modules/contacts/contacts.html',
 			controller: 'contactsController'
 		}).
-		when('/tablesolo', {
-			templateUrl: 'modules/vacancies/tablesolo.html',
-			controller: 'tablesolo'
+		when('/vacancies', {
+			templateUrl: 'modules/vacancies/vacancies.html',
+			controller: 'vacancies'
 		}).
 		otherwise({
 			redirectTo: '/'
@@ -143,7 +143,7 @@ mainApp.directive('changeHeader', function () {
 });
 "use strict"
 mainApp.controller("contactsController", function($scope){
-    c.log($scope.controllerName)
+    // c.log($scope.controllerName)
     
 });
 
@@ -311,7 +311,7 @@ mainApp.controller("portfolioController", function($scope, $http){
 
 "use strict"
 
-mainApp.controller("tablesolo", function($scope, $http){
+mainApp.controller("vacancies", function($scope, $http){
 	$scope.update = function() {
         $http.get("/getAll")
             .then(function(response) {

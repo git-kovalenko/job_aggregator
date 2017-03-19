@@ -186,7 +186,11 @@ header{
     background: #FFF;
     color: #000;
 }
-
+.header-container{
+    &.topmargin{
+        margin-top: 109px;
+    }
+}
 .jumbotron-h1{
     font-family: Marmelad;
     font-size: 16pt;

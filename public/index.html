@@ -78,8 +78,8 @@
 						<li ng-class="{active: isActive('/cv')}" headerlink="modules/cv/cvHeaderTemplate.html" change-Header isactive="isActive('/cv')"><a  href="/cv">CV</a></li>
 
 						<li ng-class="{active: isActive('/portfolio')}" headerlink="modules/portfolio/portfolioHeaderTemplate.html" change-Header isactive="isActive('/portfolio')"><a  href="/portfolio">Portfolio</a></li>
-						<li ng-click="changeHeader()" ng-class="{active: isActive('/contacts')}"><a href="/contacts">Contacts</a></li>
-						<li ng-click="changeHeader()" ng-class="{active: isActive('/tablesolo')}"><a href="/tablesolo">Tablesolo</a></li>
+						<li ng-class="{active: isActive('/contacts')}" headerlink="modules/contacts/contactsHeaderTemplate.html" change-Header isactive="isActive('/contacts')"><a href="/contacts">Contacts</a></li>
+						<li ng-class="{active: isActive('/vacancies')}" headerlink="modules/vacancies/vacanciesHeaderTemplate.html" change-Header isactive="isActive('/vacancies')"><a href="/vacancies">Vacancies</a></li>
 					</ul>
 				</div>
 				
@@ -97,7 +97,7 @@
 				</div>
 			</div>
 		</nav>
-		<div class="container header-container">
+		<div class="container header-container" ng-class="{'topmargin':navProperties.pageScrolled}">
 			<div class="row">
 				<div ng-include="headerTemplate"></div>
 			</div>

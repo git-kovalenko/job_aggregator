@@ -174,12 +174,12 @@ app.get('/', function (req, res) {
 });
 
 app.get('/getAll', function (req, res) {
-  database.getAll(function(result){
+  /*database.getAll(function(result){
       res.send(result )
-  });
+  });*/
   console.log(process.memoryUsage());
   console.log("                                      ^^^^^^^^^^^^^^^^^");
-
+res.send('')
 });
 
 

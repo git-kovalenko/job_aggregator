@@ -18,7 +18,7 @@
 	opacity: 1;
 }
 html{
-    height: auto;
+    height: 100%;
 }
 body input:focus:required:invalid,
 body textarea:focus:required:invalid {
@@ -29,6 +29,10 @@ body textarea:required:valid {
 	
 }
 body {
+	>.container{
+		min-height: calc(100% - 400px);
+	} 
+	min-height: 100%;
 	font-family: "Roboto", sans-serif;
 	font-size: 16px;
     background-color: rgb(245, 245, 245);
