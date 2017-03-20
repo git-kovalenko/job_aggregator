@@ -66,17 +66,6 @@
 	<h4>PERSONAL QUALITIES</h4>
 	<p>Reliable and responsible team player, able to quick studying and carrying out complex tasks, no bad habits. Hobbies - home-made electronic devices.</p>
 	
-	<md-content class="md-padding" layout="row" layout-wrap>
-	    <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="card in certificates">
-	        <md-card class="certificate">
-	            <md-card-content layout="column" layout-align="space-between start">
-					<a href="{{card.link}}" target="_blank">
-						<img ng-src="{{card.img}}"  alt="{{card.img}}" />
-					</a>
-				</md-card-content>
-	        </md-card>
-	    </div>
-	</md-content>
-
+	<ng-include src="'modules/cv/certificatesTemplate.html'"></ng-include>
 </div>
 

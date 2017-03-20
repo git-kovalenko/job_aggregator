@@ -36,7 +36,7 @@ mainApp.controller("portfolioController", function($scope, $http){
             order: 8,
             date: new Date(),
             title: "This site",
-            img: "thissite.png",
+            img: "thissite.jpg",
             text: "This site besides information about me contains the page for monitoring and sorting of current vacancies.",
             restricted: 'false',
             git: "https://github.com/git-kovalenko/job_aggregator",
