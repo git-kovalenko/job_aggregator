@@ -24,14 +24,14 @@ module.exports = function(pool){
 		add: function(newJob, callback){
 			var duplicateJob = Object.assign({}, newJob);
 			delete duplicateJob.date_from;
-callback(null);
-			/*pool.query("INSERT INTO vacancies1 SET ? ON DUPLICATE KEY UPDATE `date`=CURRENT_TIMESTAMP, ?", [newJob, duplicateJob], function(err, rows, fields){
+// callback(null);
+			pool.query("INSERT INTO vacancies1 SET ? ON DUPLICATE KEY UPDATE `date`=CURRENT_TIMESTAMP, ?", [newJob, duplicateJob], function(err, rows, fields){
 				if (rows != undefined){
-					console.log('               affectedRows : '+ rows.affectedRows)
+					// console.log('               affectedRows : '+ rows.affectedRows)
 				}
 			    callback(null);
 				if (err) throw err;
-			});*/
+			});
 		},
 		getAll: function(callback){
 			pool.query("SELECT * FROM vacancies1", function(err, rows, fields){

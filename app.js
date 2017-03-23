@@ -72,28 +72,22 @@ var eventEmitter = new events.EventEmitter();
 console.log("++++++++++++++");
 console.log(process.memoryUsage());
 
-/*
+var timeout = 0;
 eventEmitter.on('scrapped', function(){
-  console.log("\n");
-  console.log('scrapped executed.');
+  console.log('scrapped executed. ' + (timeout/60000) + ' minutes' );
   console.log(process.memoryUsage());
-  console.log("\n");
-  
-  var timeout = 0;
-  c.log("******************  "+timeout + '  (' + timeout/60000 + ' minutes )')
+    
+
   var timeoutId = setTimeout(function() {
     var scrapper = require('./scrapper_zombie')(database,  moment, cheerio, eventEmitter);
+    timeout = scrapper.getRandomIntMinutes(30, 50);
+    c.log("******************  "+timeout + '  (' + timeout/60000 + ' minutes )')
     scrapper.scrape();
-    // timeout = scrapper.getRandomIntMinutes(1, 2);
-    timeout = 100;
-    console.log("\n");
-    console.log(process.memoryUsage());
-    console.log("\n");
   }, timeout);
 
 });
 eventEmitter.emit('scrapped');
-*/
+
 var path = require('path');
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -103,8 +97,8 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-var session = require('express-session');
-var MongoStore = require('connect-mongo/es5')(session);
+/*var session = require('express-session');
+var MongoStore = require('connect-mongo/es5')(session);*/
 
 var Db = require('mongodb').Db;
 var Server = require('mongodb').Server;
@@ -174,12 +168,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/getAll', function (req, res) {
-  /*database.getAll(function(result){
+  database.getAll(function(result){
       res.send(result )
-  });*/
-  console.log(process.memoryUsage());
-  console.log("                                      ^^^^^^^^^^^^^^^^^");
-res.send('')
+  });
+  // console.log(process.memoryUsage());
+  // console.log("                                      ^^^^^^^^^^^^^^^^^");
 });
 
 

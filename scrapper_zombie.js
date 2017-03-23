@@ -21,7 +21,7 @@ try{
 		};
 // https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-angular-node-javascript/%D0%9A%D0%B8%D0%B5%D0%B2?date=3&p=2
 	var links = {
-		/*jooble_org:{
+		jooble_org:{
 			domain: 'https://ua.jooble.org',
 			url: 'https://ua.jooble.org/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-' + grabOptions.searchString.trim().replace(/-/g, '+').replace(/[\s]+/g, '-'),
 			paginatorName: 'p',
@@ -33,8 +33,8 @@ try{
 			},
 			tableRowsSelector: '#serp_table_wrapper .vacancy_wrapper',
 			cheerioGetters: function(tr){
-				var title = tr.find('.h2Position').text();
-				var url = tr.find('.serp_vacancy-top a').prop('href');
+				var title = tr.find('#h2Position').text().trim();
+				var url = tr.find('.top-wr a').prop('href');
 				return{
 					id: title + url.match(/^.+\?|^.+\//),
 					title: title,
@@ -44,7 +44,7 @@ try{
 					company: tr.find('.company-name').text(),
 				}
 			}
-		},*/
+		},
 		rabota_ua:{
 			domain: 'http://rabota.ua',
 			url: 'http://rabota.ua/jobsearch/vacancy_list',
@@ -131,10 +131,14 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 
 
 						var browser = require('zombie');
+						if (process.env.USERDOMAIN == 'ALFA'){
+							browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
+						}
 						browser.visit(reqUrl, function (e, browser) {
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
-c.log('tableRows.length'+tableRows.length)									
+
+// c.log('tableRows.length'+tableRows.length)									
 								
 									try{
 										var serieIndex = 0;
@@ -170,12 +174,13 @@ c.log('-------> done eachSeries!')
 
 							browser.tabs.closeAll();
 						});
+										
 
 
-console.log("\n");
+/*console.log("\n");
     console.log(process.memoryUsage());
     console.log("\n ^^^^^^^^^^^^^^");
-
+*/
 
 
 					},
@@ -195,6 +200,8 @@ c.log("tableRowsLength = "+ tableRowsLength)
 						callbackEachLink(null);
 					}
 				);
+
+
 			},
 			function (err) {
 				if(err){
