@@ -44,7 +44,7 @@ try{
 					company: tr.find('.company-name').text(),
 				}
 			}
-		},
+		}/*,
 		rabota_ua:{
 			domain: 'http://rabota.ua',
 			url: 'http://rabota.ua/jobsearch/vacancy_list',
@@ -70,18 +70,19 @@ try{
 					company: tr.find('.f-vacancylist-companyname').text().trim(),
 				}
 			}
-		}
+		}*/
 	};
 	// console.log(links)
 }catch(e){
 	console.log('Ошибка ' + e.name + ":" + e.message + "\n" + e.stack);
 }
 //https://jobs.dou.ua/vacancies/?category=Front+End&search=nodejs&city=%D0%9A%D0%B8%D0%B5%D0%B2
-module.exports = function(database,  moment, cheerio, eventEmitter){
+module.exports = function(){
 	var Scrapper = {
-		scrape: function(timeoutMin, timeoutMax){
+		scrape: function(database,  eventEmitter){
 
 			function Job(options){
+				var moment = require('moment');
 				this.date_from = moment().format("YYYY-MM-DD HH:mm:ss");
 				for(var key in options){
 					if (options.hasOwnProperty(key)) {
@@ -130,15 +131,28 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 						
 
 
-						var browser = require('zombie');
+						var Browser = require('zombie');
+						const browser = new Browser();
+
 						if (process.env.USERDOMAIN == 'ALFA'){
 							browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
 						}
-						browser.visit(reqUrl, function (e, browser) {
+
+/*browser.visit(reqUrl, function (e) {
+	c.log('visit')	
+	var cheerio = require('cheerio');
+	var $ = cheerio.load(browser.html());
+	var tableRows = $(link.tableRowsSelector);
+	browser.tabs.closeAll();
+	callbackDoWhilst(null, tableRows.length)
+});*/
+
+						browser.visit(reqUrl, function (e) {
+									var cheerio = require('cheerio');
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
 
-// c.log('tableRows.length'+tableRows.length)									
+c.log('tableRows.length'+tableRows.length)									
 								
 									try{
 										var serieIndex = 0;
@@ -149,9 +163,9 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 												if(!/^http/.test(newJob.url)){
 													newJob.url = link.domain + newJob.url;
 												}
-// console.log(serieIndex +" "+  newJob.title  );	
+console.log(serieIndex +" "+  newJob.title  );	
 
-
+												
 												database.add(newJob, callbackEach);
 											},
 											function (err) {
@@ -175,12 +189,12 @@ c.log('-------> done eachSeries!')
 							browser.tabs.closeAll();
 						});
 										
+// eventEmitter.emit('scrapped');
 
-
-/*console.log("\n");
-    console.log(process.memoryUsage());
+	console.log("\n");
+    console.log(process.memoryUsage().heapUsed / 1000000);
     console.log("\n ^^^^^^^^^^^^^^");
-*/
+
 
 
 					},

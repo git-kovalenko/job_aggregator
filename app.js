@@ -51,8 +51,8 @@ var pool  = mysql.createPool(configDb);
 
 var database = require('./database')(pool);
 
-var moment = require('moment');
-var cheerio = require('cheerio');
+/*var moment = require('moment');
+var cheerio = require('cheerio');*/
 // var request = require('request');
 // var req = request.defaults({'proxy':'http://wsproxy.alfa.bank.int:3128'});
 
@@ -79,10 +79,12 @@ eventEmitter.on('scrapped', function(){
     
 
   var timeoutId = setTimeout(function() {
-    var scrapper = require('./scrapper_zombie')(database,  moment, cheerio, eventEmitter);
-    timeout = scrapper.getRandomIntMinutes(30, 50);
+    var scrapper = require('./scrapper_zombie')();
+    // timeout = scrapper.getRandomIntMinutes(30, 50);
+    timeout = 5000;
     c.log("******************  "+timeout + '  (' + timeout/60000 + ' minutes )')
-    scrapper.scrape();
+    c.log(scrapper.scrape)
+    scrapper.scrape(database, eventEmitter);
   }, timeout);
 
 });
