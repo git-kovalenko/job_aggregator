@@ -28,8 +28,8 @@ try{
 			pageStep: 1,
 			params:{
 				city: cityCodes[grabOptions.city]['jooble_org'],
-				date: '0',
-				p: 1
+				date: '1',
+				p: 49
 			},
 			tableRowsSelector: '#serp_table_wrapper .vacancy_wrapper',
 			cheerioGetters: function(tr){
@@ -102,8 +102,8 @@ module.exports = function(){
 c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(key) {return links[key] === link})[0])
 				var paginator = link.params[link.paginatorName];
 
-				var async2 = require('async');
-				async2.doWhilst(
+				
+				async.doWhilst(
 					function(callbackDoWhilst){
 						var reqUrl = link.url;
 
@@ -132,7 +132,7 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 
 
 						var Browser = require('zombie');
-						const browser = new Browser();
+						var browser = new Browser();
 
 						if (process.env.USERDOMAIN == 'ALFA'){
 							browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
@@ -152,48 +152,78 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
 
-c.log('tableRows.length'+tableRows.length)									
+c.log('tableRows.length'+  tableRows.length)									
 								
 									try{
 										var serieIndex = 0;
-										var async3 = require('async');
-										async3.each(tableRows, function(tr, callbackEach){
+
+							/*			async.each(tableRows, function(tr, callbackEach){
 												serieIndex = ++serieIndex;
 												var newJob = new Job (link.cheerioGetters( $(tr) ));
 												if(!/^http/.test(newJob.url)){
 													newJob.url = link.domain + newJob.url;
 												}
-console.log(serieIndex +" "+  newJob.title  );	
+												console.log(serieIndex +" "+  newJob.title  );	
 
-												
-												database.add(newJob, callbackEach);
+												callbackEach(null)
+												// database.add(newJob, callbackEach);
 											},
 											function (err) {
 												if(err){
 													c.log(err);
 												}else{
-c.log('-------> done eachSeries!')
+													c.log('-------> done eachSeries!')
 													if(tableRows.length == serieIndex){
 														callbackDoWhilst(null, tableRows.length)
 													}
 												}
 											}
-										);
+										);*/
+
+										var jobArray = [];
+										var i;
+										for (i = 0; i < tableRows.length; i++){
+											var tr = tableRows[i]
+											serieIndex = ++serieIndex;
+											var newJob = new Job (link.cheerioGetters( $(tr) ));
+											if(!/^http/.test(newJob.url)){
+												newJob.url = link.domain + newJob.url;
+											}
+											console.log(serieIndex +" "+  newJob.title  );
+											jobArray.push(newJob);
+										}
+
+
+callbackDoWhilst(null, tableRows.length)
+
+
+
+
 
 									}catch(e){
 										console.log('Ошибка ' + e.name + ":" + e.message + "\n" + e.stack);
 									}
 									
-								
-
-							browser.tabs.closeAll();
+									cheerio = null;
+									$ = null;
+									browser.tabs.closeAll();
+									browser = null;
+									Browser = null;
+									c.log(Browser)
+							
+							//use key: --expose-gc   
+							if(typeof global.gc == 'function'){
+								global.gc();
+								c.log('################################ erised GC')
+								console.log(process.memoryUsage().heapUsed / 1000000);
+							}
 						});
 										
 // eventEmitter.emit('scrapped');
 
 	console.log("\n");
     console.log(process.memoryUsage().heapUsed / 1000000);
-    console.log("\n ^^^^^^^^^^^^^^");
+    console.log("\n ");
 
 
 

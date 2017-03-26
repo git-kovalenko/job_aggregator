@@ -77,12 +77,18 @@ eventEmitter.on('scrapped', function(){
   console.log('scrapped executed. ' + (timeout/60000) + ' minutes' );
   console.log(process.memoryUsage());
     
+  if(typeof global.gc == 'function'){
+    global.gc();
+    c.log('################################ erised GC')
+    console.log(process.memoryUsage());
+  }
+ 
 
   var timeoutId = setTimeout(function() {
     var scrapper = require('./scrapper_zombie')();
     // timeout = scrapper.getRandomIntMinutes(30, 50);
-    timeout = 5000;
-    c.log("******************  "+timeout + '  (' + timeout/60000 + ' minutes )')
+    timeout = 10000;
+    c.log("************-----------------------------------******  "+timeout + '  (' + timeout/60000 + ' minutes )')
     c.log(scrapper.scrape)
     scrapper.scrape(database, eventEmitter);
   }, timeout);
