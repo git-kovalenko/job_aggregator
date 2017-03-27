@@ -1,4 +1,5 @@
 var c = console;
+timeout = 0;
 try{
 	var grabOptions = {
 			city: 'kiev',
@@ -44,7 +45,7 @@ try{
 					company: tr.find('.company-name').text(),
 				}
 			}
-		}/*,
+		},
 		rabota_ua:{
 			domain: 'http://rabota.ua',
 			url: 'http://rabota.ua/jobsearch/vacancy_list',
@@ -70,7 +71,7 @@ try{
 					company: tr.find('.f-vacancylist-companyname').text().trim(),
 				}
 			}
-		}*/
+		}
 	};
 	// console.log(links)
 }catch(e){
@@ -79,10 +80,9 @@ try{
 //https://jobs.dou.ua/vacancies/?category=Front+End&search=nodejs&city=%D0%9A%D0%B8%D0%B5%D0%B2
 module.exports = function(){
 	var Scrapper = {
-		scrape: function(database,  eventEmitter){
-
+		scrape: function(database, async, moment, eventEmitter){
+var ttt = 100;
 			function Job(options){
-				var moment = require('moment');
 				this.date_from = moment().format("YYYY-MM-DD HH:mm:ss");
 				for(var key in options){
 					if (options.hasOwnProperty(key)) {
@@ -96,7 +96,7 @@ module.exports = function(){
 				readed: null,
 				chosen: null
 			}
-			var async = require('async');
+			
 			async.eachSeries(links, function(link, callbackEachLink){
 			//.eachSeries for non parallel
 c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(key) {return links[key] === link})[0])
@@ -130,24 +130,17 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 						c.log('paginator = '+paginator)
 						
 
-
-						var Browser = require('zombie');
+// const Browser = require('zombie');
+// var browser = new Browser();
+						/*const Browser = require('zombie');
 						var browser = new Browser();
 
 						if (process.env.USERDOMAIN == 'ALFA'){
 							browser.proxy = 'http://wsproxy.alfa.bank.int:3128';
 						}
 
-/*browser.visit(reqUrl, function (e) {
-	c.log('visit')	
-	var cheerio = require('cheerio');
-	var $ = cheerio.load(browser.html());
-	var tableRows = $(link.tableRowsSelector);
-	browser.tabs.closeAll();
-	callbackDoWhilst(null, tableRows.length)
-});*/
 
-						browser.visit(reqUrl, function (e) {
+						browser.visit(reqUrl, function () {
 									var cheerio = require('cheerio');
 									var $ = cheerio.load(browser.html());
 									var tableRows = $(link.tableRowsSelector);
@@ -155,77 +148,49 @@ c.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% - '+Object.keys(links).filter(function(
 c.log('tableRows.length'+  tableRows.length)									
 								
 									try{
-										var serieIndex = 0;
-
-							/*			async.each(tableRows, function(tr, callbackEach){
-												serieIndex = ++serieIndex;
-												var newJob = new Job (link.cheerioGetters( $(tr) ));
-												if(!/^http/.test(newJob.url)){
-													newJob.url = link.domain + newJob.url;
-												}
-												console.log(serieIndex +" "+  newJob.title  );	
-
-												callbackEach(null)
-												// database.add(newJob, callbackEach);
-											},
-											function (err) {
-												if(err){
-													c.log(err);
-												}else{
-													c.log('-------> done eachSeries!')
-													if(tableRows.length == serieIndex){
-														callbackDoWhilst(null, tableRows.length)
-													}
-												}
-											}
-										);*/
 
 										var jobArray = [];
 										var i;
 										for (i = 0; i < tableRows.length; i++){
 											var tr = tableRows[i]
-											serieIndex = ++serieIndex;
 											var newJob = new Job (link.cheerioGetters( $(tr) ));
 											if(!/^http/.test(newJob.url)){
 												newJob.url = link.domain + newJob.url;
 											}
-											console.log(serieIndex +" "+  newJob.title  );
+											console.log(i+" "+  newJob.title  );
 											jobArray.push(newJob);
 										}
-
-
-callbackDoWhilst(null, tableRows.length)
-
-
-
+										database.addArray(jobArray);
+										callbackDoWhilst(null, tableRows.length)
 
 
 									}catch(e){
 										console.log('Ошибка ' + e.name + ":" + e.message + "\n" + e.stack);
 									}
 									
+									
 									cheerio = null;
 									$ = null;
 									browser.tabs.closeAll();
 									browser = null;
-									Browser = null;
-									c.log(Browser)
 							
-							//use key: --expose-gc   
-							if(typeof global.gc == 'function'){
-								global.gc();
-								c.log('################################ erised GC')
-								console.log(process.memoryUsage().heapUsed / 1000000);
-							}
-						});
+									//use key: --expose-gc   
+									if(typeof global.gc == 'function'){
+										global.gc();
+										c.log('################################ erised GC')
+										console.log(process.memoryUsage().heapUsed / 1000000);
+									}
+						});*/
 										
-// eventEmitter.emit('scrapped');
-
-	console.log("\n");
+	// console.log("\n");
     console.log(process.memoryUsage().heapUsed / 1000000);
-    console.log("\n ");
-
-
+    // console.log("\n ");
+    if(typeof global.gc == 'function'){
+		global.gc();
+		c.log('################################ erised GC')
+		console.log(process.memoryUsage().heapUsed / 1000000);
+	}
+callbackDoWhilst(null, ttt--)
 
 					},
 					function(tableRowsLength){
@@ -254,7 +219,12 @@ c.log("tableRowsLength = "+ tableRowsLength)
 					c.log('-------> done eachSeriesLink!')
 				}
 				
-				eventEmitter.emit('scrapped');
+			    // timeout = Scrapper.getRandomIntMinutes(3, 5);
+			    timeout = 3000;
+			    c.log("************-----------------------------------******  "+timeout + '  (' + timeout/60000 + ' minutes )')
+				var timeoutId = setTimeout(function() {
+					eventEmitter.emit('scrapped');
+				}, timeout);
 				
 			});
 

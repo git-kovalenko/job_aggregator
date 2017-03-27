@@ -21,6 +21,7 @@
     "mysql": "latest",
     "path": "^0.12.7",
     "request": "latest",
+    "throng": "^4.0.0",
     "zombie": "latest"
   },
   "devDependencies": {

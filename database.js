@@ -29,9 +29,15 @@ module.exports = function(pool){
 				if (rows != undefined){
 					console.log('               affectedRows : '+ rows.affectedRows)
 				}
-			    callback(null);
+			    //callback(null);
 				if (err) throw err;
 			});
+		},
+		addArray: function(jobArray, callback){
+			for (var job in jobArray){
+				Database.add(jobArray[job]);
+			}
+
 		},
 		getAll: function(callback){
 			pool.query("SELECT * FROM vacancies1", function(err, rows, fields){
