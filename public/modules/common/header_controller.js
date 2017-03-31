@@ -1,6 +1,6 @@
 "use strict"
 mainApp.controller("headerController", ['$scope', '$location', function($scope, $location){
-    c.log("[" + $scope.controllerName +"] got here");
+    // c.log("[" + $scope.controllerName +"] got here");
     
     $scope.navProperties= {
     	flipStart : 50,

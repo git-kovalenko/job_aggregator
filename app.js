@@ -75,28 +75,35 @@ function start(){
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
-  const async = require('async');
-  const moment = require('moment');
-  const events = require('events');
+  var async = require('async');
+  var moment = require('moment');
+  var events = require('events');
   
-  var eventEmitter = new events.EventEmitter();
-  eventEmitter.on('scrapped', function(){
-    console.log(process.memoryUsage().heapUsed / 1000000);
+  /*var heapdump = require('heapdump')
+  heapdump.writeSnapshot('./log/' + Date.now() + '.heapsnapshot');*/
 
-    if(process.memoryUsage().heapUsed / 1000000  < 200  ){
-      const scrapper = require('./scrapper_zombie')();
+  var eventEmitter = new events.EventEmitter();
+
+  eventEmitter.on('scrapped', function(){
+    // console.log(process.memoryUsage().heapUsed / 1000000);
+// heapdump.writeSnapshot('./log/' + Date.now() + '.heapsnapshot');
+    if(process.memoryUsage().heapUsed / 1000000 < 200){
+      var scrapper = require('./scrapper_zombie');
       scrapper.scrape(database, async, moment, eventEmitter);
+      scrapper = null;
     }else{
       if(typeof global.gc == 'function'){
         global.gc();
         c.log('################################ erised GC')
         c.log(process.memoryUsage().heapUsed / 1000000);
-        setTimeout(function() {
-          eventEmitter.emit('scrapped');
-        }, 3000);
       }
+      var timeoutId = setTimeout(function() {
+          eventEmitter.emit('scrapped');
+        }, 30*60000);
     }
+      
   });
+
   eventEmitter.emit('scrapped');
 
   var path = require('path');

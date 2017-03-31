@@ -27,8 +27,10 @@ module.exports = function(pool){
 // callback(null);
 			pool.query("INSERT INTO vacancies1 SET ? ON DUPLICATE KEY UPDATE `date`=CURRENT_TIMESTAMP, ?", [newJob, duplicateJob], function(err, rows, fields){
 				if (rows != undefined){
-					console.log('               affectedRows : '+ rows.affectedRows)
+					// console.log('               affectedRows : '+ rows.affectedRows)
 				}
+				newJob = null;
+				duplicateJob = null;
 			    //callback(null);
 				if (err) throw err;
 			});
@@ -37,7 +39,7 @@ module.exports = function(pool){
 			for (var job in jobArray){
 				Database.add(jobArray[job]);
 			}
-
+			jobArray = null;
 		},
 		getAll: function(callback){
 			pool.query("SELECT * FROM vacancies1", function(err, rows, fields){
