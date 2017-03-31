@@ -70,7 +70,7 @@ function start(){
   var cheerio = require('cheerio');*/
   // var request = require('request');
   // var req = request.defaults({'proxy':'http://wsproxy.alfa.bank.int:3128'});
-  // database.createTable();
+  database.createTable();
   
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 

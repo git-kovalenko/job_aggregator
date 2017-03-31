@@ -219,8 +219,8 @@ c.log("tableRowsLength = "+ tableRowsLength)
 					return 60000 * (Math.floor(Math.random() * (max - min)) + min);
 				}
 			    
-			    // var timeout = getRandomIntMinutes(500, 800);
-			    var timeout = 3000;
+			    var timeout = getRandomIntMinutes(500, 800);
+			    // var timeout = 3000;
 				c.log("************-----------------------------------******  "+timeout + '  (' + timeout/60000 + ' minutes )')
 				var timeoutId = setTimeout(function() {
 					eventEmitter.emit('scrapped');
