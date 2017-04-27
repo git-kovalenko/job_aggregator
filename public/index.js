@@ -63,6 +63,11 @@ mainApp.config(function($provide) {
 					};
 				});
 				
+mainApp.controller("homeController", function($scope){
+    // c.log($scope.controllerName)
+   
+});
+
 "use strict"
 mainApp.controller("headerController", ['$scope', '$location', function($scope, $location){
     // c.log("[" + $scope.controllerName +"] got here");
@@ -142,14 +147,24 @@ mainApp.directive('changeHeader', function () {
     }
 });
 "use strict"
-mainApp.controller("contactsController", function($scope){
-    // c.log($scope.controllerName)
+
+mainApp.controller("vacancies", function($scope, $http){
+	$scope.update = function() {
+        $http.get("/getAll")
+            .then(function(response) {
+                $scope.rows = response.data;
+            });
+    };
     
 });
+
 
 "use strict"
 mainApp.controller("cvController", function($scope){
     $scope.certificates = [{
+        img: 'doc/img/angular2.jpg',
+        link: 'doc/Angular2 certificate.pdf'
+    },{
     	img: 'doc/img/angular.jpg',
     	link: 'doc/AngularJS certificate.pdf'
     },{
@@ -167,9 +182,10 @@ mainApp.controller("cvController", function($scope){
     }]
 });
 
-mainApp.controller("homeController", function($scope){
+"use strict"
+mainApp.controller("contactsController", function($scope){
     // c.log($scope.controllerName)
-   
+    
 });
 
 mainApp.controller("portfolioController", function($scope, $http){
@@ -315,16 +331,3 @@ mainApp.controller("portfolioController", function($scope, $http){
 
     // $scope.add();
 });
-
-"use strict"
-
-mainApp.controller("vacancies", function($scope, $http){
-	$scope.update = function() {
-        $http.get("/getAll")
-            .then(function(response) {
-                $scope.rows = response.data;
-            });
-    };
-    
-});
-
