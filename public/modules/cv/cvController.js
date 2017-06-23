@@ -1,6 +1,9 @@
 "use strict"
 mainApp.controller("cvController", function($scope){
     $scope.certificates = [{
+        img: 'doc/img/secur005.jpg',
+        link: 'doc/secur005.pdf'
+    },{
         img: 'doc/img/angular2.jpg',
         link: 'doc/Angular2 certificate.pdf'
     },{
